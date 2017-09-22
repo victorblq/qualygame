@@ -1,0 +1,31 @@
+<md-card class="pad-md">
+    <div flex layout="row" layout-align="center start">
+        <span class="md-title">{{ 'labels.teamSummary' | translate }}</span>
+    </div>
+    <div layout="row" layout-margin layout-align="center center">
+        <div layout="column" style="border: 1px solid #ccc; min-width: 20%; border-radius: 50%; text-align: center;">
+            <div layout="column" layout-align="center center" class="push-lg">
+                <span>{{ loggedUser.nickname }}</span>
+                <span>{{ loggedUser.totalPontuation }}</span>
+            </div>
+        </div>
+
+        <div layout="column" class="push-md" *ngIf="team != null && coworker != null" style="border: 1px solid #009688; min-width: 20%; border-radius: 50%; text-align: center;">
+            <div layout="column" layout-align="center center" class="push-xxl">
+                <span>{{ team.name }}</span>
+                <span>{{ calculateMedia() }}</span>
+            </div>
+        </div>
+
+        <div layout="column" *ngIf="coworker != null" style="border: 1px solid #ccc; min-width: 20%; border-radius: 50%; text-align: center;">
+            <div layout="column" layout-align="center center" class="push-lg">
+                <span>{{ coworker.nickname }}</span>
+                <span>{{ coworker.totalPontuation }}</span>
+            </div>
+        </div>
+    </div>
+
+    <md-card-footer>
+        <md-progress-bar *ngIf="loggedUser == null && team == null && coworker == null" mode="indeterminate"></md-progress-bar>
+    </md-card-footer>
+</md-card>

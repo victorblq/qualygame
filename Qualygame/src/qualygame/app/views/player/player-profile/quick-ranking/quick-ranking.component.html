@@ -1,0 +1,25 @@
+<div flex class="pad-top-sm pad-left-lg pad-right-lg pad-bottom-sm" layout-align="center center">
+    <div flex layout="row" class="pad-top-sm" layout-align="center center">     
+        <span>{{ 'labels.ranking' | translate }}</span>
+    </div>
+
+    <md-card class="pad-sm">
+        <div *ngFor="let rankRow of quickRankingList; let position = index;">
+            <div flex layout="row" *ngIf="!userOnly || rankRow.user.nickname == user.nickname" class="pad-sm rankingRow position_{{rankRow.position < 3 ? rankRow.position : rankRow.user.nickname == user.nickname ? 'user' : 'white'}}" layout-align="start center">
+                <div layout="row" flex layout-align="start center">
+                    <div layout="row" class="rankingRowPositionNumber" layout-align="center center">
+                        <span>{{rankRow.position + 1}}</span>
+                    </div>
+                    <span>{{ rankRow.user.nickname }}</span>
+                    <span flex></span>
+                    <span>{{ rankRow.user.totalPontuation }} {{ 'labels.points' | translate }}</span>
+                </div>
+            </div>
+        </div>
+
+        <md-card-footer>
+            <md-progress-bar *ngIf="user == null" mode="indeterminate"></md-progress-bar>
+        </md-card-footer>
+
+    </md-card>
+</div>

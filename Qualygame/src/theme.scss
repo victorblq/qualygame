@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+
+@include mat-core();
+
+$primary: mat-palette($mat-teal, 500);
+$accent:  mat-palette($mat-grey, 600, A100, A400);
+$warn:    mat-palette($mat-red, 600);
+
+//$primaryColorButton: #CECECE;
+$accentColorButton: #FB8C00;
+$warnColorButton: #15968E;
+
+$primaryColor: #009688;
+$primaryFontColor: #FFFFFF;
+
+$theme: mat-light-theme( $primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+@include covalent-theme($theme);
+body
+{
+    background-color: #E0E0E0;
+}
+
+.toolbarSearchBox
+{
+    margin-top: -25px!important;
+}
+
+.toolbarSearchBox > md-input-container
+{
+    width: 100%;
+}
+
+.toolbarSearchBox .mat-input-placeholder
+{
+    top: 2em;
+    color: white!important;
+}
+
+.mat-dialog-container
+{
+    padding: 0px!important;
+}
+
+.label
+{
+    font-size: 14px;
+    color: #8a8a8a;
+}

@@ -1,0 +1,58 @@
+Desenvolver protótipos de tela
+
+Criar entidades
+
+Manter Usuários
+    Autenticar Usuários
+    Consultar Usuários
+    Inserir Usuários
+    Alterar Usuários
+    Consultar usuários para associação
+    Visualizar detalhes do Usuário
+
+Manter Times
+    Listar Times
+    Inserir Times
+    Alterar Times
+    Excluir Times
+    Visualizar detalhes do Time
+    Consultar Times para associação
+
+Manter projetos
+    Listar projetos
+    Inserir projetos
+    Alterar projetos
+    Remover projetos
+    Finalizar projetos
+    Visualizar detalhes do projetos
+    Consultar projetos para associação
+
+Manter ciclos
+    Listar ciclos
+    Inserir ciclo
+    Alterar ciclo
+    Remover ciclo
+    Alterar status do ciclo
+    Visualizar detalhes do ciclo
+
+Manter commits
+    Script de inserção de commit (CLI)
+    Consultar commits
+    Alterar status do commit
+    Visualizar detalhes do commit
+
+Gerenciar pontuação
+    Revogar pontuação
+
+Analisar artefatos
+    Inserir não conformidade
+
+Dashboards
+    Exibir ranking de pontuações
+    Exibir perfil de jogador
+    Exibir progresso de pontuação do jogador
+    Exibir tutorial para jogadores novatos
+    Exibir gráfico com panorama de níveis de jogadores
+
+Gerenciar recompensar virtuais
+    Atribuir medalhas

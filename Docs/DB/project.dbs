@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="pangame" id="Project_1fb6c72" template="Default" database="MongoDb" >
+	<schema name="pangame" schemaname="pangame" >
+		<table name="teams" >
+			<column name="name" type="oid" jt="-8" mandatory="y" />
+			<column name="members" type="list" jt="4999545" />
+			<column name="projects" type="list" jt="4999545" >
+				<column name="name" type="oid" jt="-8" mandatory="y" />
+				<column name="description" type="string" jt="12" />
+				<column name="status" type="string" jt="12" mandatory="y" />
+				<column name="iterations" type="list" jt="4999545" >
+					<column name="objectId" type="oid" jt="-8" mandatory="y" />
+					<column name="name" type="string" jt="12" mandatory="y" />
+					<column name="status" type="string" jt="12" mandatory="y" />
+				</column>
+			</column>
+			<index name="idx_name_projeto" unique="UNIQUE" >
+				<column name="name" />
+			</index>
+		</table>
+		<table name="users" >
+			<comment><![CDATA[collection que armazena os usuarios
+]]></comment>
+			<column name="nickname" type="string" jt="12" mandatory="y" />
+			<column name="name" type="string" jt="12" mandatory="y" />
+			<column name="email" type="string" jt="12" mandatory="y" />
+			<column name="password" type="string" jt="12" mandatory="y" />
+			<column name="status" type="string" jt="12" mandatory="y" >
+				<defo>&#039;ACTIVE&#039;</defo>
+			</column>
+			<column name="badges" type="list" jt="4999545" >
+				<column name="objectId" type="oid" jt="-8" mandatory="y" />
+				<column name="name" type="string" jt="12" mandatory="y" />
+				<column name="value" type="integer" jt="4" mandatory="y" />
+				<column name="apply" type="string" jt="12" mandatory="y" />
+				<column name="condition" type="string" jt="12" mandatory="y" />
+			</column>
+			<column name="pontuation" type="list" jt="4999545" >
+				<column name="objectId" type="oid" jt="-8" mandatory="y" />
+				<column name="value" type="integer" jt="4" mandatory="y" />
+				<column name="status" type="string" jt="12" mandatory="y" />
+				<column name="hash" type="string" jt="12" mandatory="y" />
+				<column name="action" type="map" jt="4999544" mandatory="y" >
+					<column name="objectId" type="oid" jt="-8" mandatory="y" />
+					<column name="name" type="string" jt="12" mandatory="y" />
+					<column name="pontuation" type="string" jt="12" mandatory="y" />
+				</column>
+			</column>
+			<column name="commits" type="list" jt="4999545" >
+				<column name="hash" type="oid" jt="-8" mandatory="y" />
+				<column name="date" type="date" jt="91" mandatory="y" />
+				<column name="message" type="string" jt="12" mandatory="y" />
+				<column name="status" type="string" jt="12" mandatory="y" />
+				<column name="commitedArtifacts" type="list" jt="4999545" >
+					<column name="objectId" type="oid" jt="-8" mandatory="y" />
+					<column name="artifact" type="map" jt="4999544" mandatory="y" >
+						<column name="code" type="string" jt="12" mandatory="y" />
+						<column name="name" type="string" jt="12" mandatory="y" />
+						<column name="weight" type="string" jt="12" />
+					</column>
+					<column name="filepath" type="string" jt="12" mandatory="y" />
+					<column name="status" type="string" jt="12" mandatory="y" />
+					<column name="errors" type="list" jt="4999545" >
+						<column name="objectId" type="oid" jt="-8" mandatory="y" />
+						<column name="code" type="string" jt="12" mandatory="y" />
+						<column name="message" type="string" jt="12" mandatory="y" />
+					</column>
+				</column>
+			</column>
+			<index name="Idx_usuarios" unique="UNIQUE" >
+				<column name="nickname" />
+			</index>
+			<index name="Idx_name" unique="NORMAL" >
+				<column name="name" />
+			</index>
+			<fk name="fk_usuarios" virtual="y" to_schema="pangame" to_table="teams" >
+				<fk_column name="nickname" pk="members" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout_5510669" show_relation="columns" >
+		<entity schema="pangame" name="users" column="commits" color="bcd5f1" x="464" y="288" />
+		<entity schema="pangame" name="users" column="badges" color="bcd5f1" x="240" y="304" />
+		<entity schema="pangame" name="users" column="commits.commitedArtifacts.errors" color="bcd5f1" x="256" y="512" />
+		<entity schema="pangame" name="teams" color="bcd5f1" x="64" y="48" />
+		<entity schema="pangame" name="teams" column="projects" color="bcd5f1" x="48" y="240" />
+		<entity schema="pangame" name="teams" column="projects.iterations" color="bcd5f1" x="48" y="432" />
+		<entity schema="pangame" name="users" color="9999ff" x="224" y="80" />
+		<entity schema="pangame" name="users" column="pontuation" color="bcd5f1" x="464" y="80" />
+		<entity schema="pangame" name="users" column="pontuation.action" color="bcd5f1" x="640" y="112" />
+		<entity schema="pangame" name="users" column="commits.commitedArtifacts" color="bcd5f1" x="480" y="512" />
+		<entity schema="pangame" name="users" column="commits.commitedArtifacts.artifact" color="bcd5f1" x="672" y="528" />
+	</layout>
+</project>

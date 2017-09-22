@@ -1,0 +1,18 @@
+<common-toolbar *ngIf="loggedUser != null" [loggedUser]="loggedUser"></common-toolbar>
+
+<div layout="row" layout-margin style="background-color: #E0E0E0; margin: 0px;">
+
+    <player-profile [user]="loggedUser" [userOnlyRanking]="false" flex="25"></player-profile>
+    
+    <div layout="column" flex="75">
+        <div layout="row">
+            <player-last-commits *ngIf="loggedUser != null" [loggedUser]="loggedUser" flex="50"></player-last-commits>
+            <player-last-pontuation *ngIf="loggedUser != null" [loggedUser]="loggedUser" flex="50"></player-last-pontuation>
+        </div>
+        
+        <div layout="row" >
+            <team-summary  *ngIf="loggedUser != null" [loggedUser]="loggedUser" flex="50"></team-summary>
+            <level-summary  *ngIf="loggedUser != null" [loggedUser]="loggedUser" flex="50"></level-summary>
+        </div>
+    </div>
+</div>

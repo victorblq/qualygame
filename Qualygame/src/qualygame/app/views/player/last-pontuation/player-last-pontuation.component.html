@@ -1,0 +1,21 @@
+<md-card class="pad-md">
+    <div flex layout="row" layout-align="center start">
+        <span class="md-title">{{ 'labels.lastPontuations' | translate }}</span>
+    </div>
+
+    <div layout="row">
+        <md-list flex>
+            <md-list-item *ngFor="let pontuation of lastPontuation">
+                <div layout="row" flex>
+                    <span flex>{{ pontuation.date | date:"dd/MM/yyyy HH:mm" }}</span>
+                    <span flex>{{ pontuation.value }}</span>
+                    <span flex>{{ "actions."+pontuation?.action?.name | translate }}</span>
+                    <span flex>{{ "enums."+pontuation.status | translate }}</span>
+                </div>
+            </md-list-item>
+        </md-list>
+    </div>
+    <md-card-footer>
+        <md-progress-bar *ngIf="lastPontuation == null" mode="indeterminate"></md-progress-bar>
+    </md-card-footer>
+</md-card>    

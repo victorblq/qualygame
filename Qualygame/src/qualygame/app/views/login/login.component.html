@@ -1,0 +1,31 @@
+<div flex layout-fill layout="row" layout-align="center center">
+    <md-card flex="25">
+        <md-toolbar>
+            Login
+        </md-toolbar>
+
+        <div layout="column" layout-margin>
+            <div layout="row" layout-margin>
+                <md-input-container flex>
+                    <input mdInput placeholder="Email" type="email" name="email" [(ngModel)]="email" required>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-margin>
+                <md-input-container flex>
+                    <input mdInput placeholder="Senha" name="password" [(ngModel)]="password" type="password" required>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-padding layout-align="end center">
+                <button md-raised-button flex (click)="login()" color="primary">Entrar</button>    
+            </div>
+            <div layout="row" layout-padding layout-align="end center">
+                <button md-raised-button flex (click)="afAuth.auth.signOut()" color="primary">Sair</button>    
+            </div>
+            <div layout="row" layout-padding layout-align="end center">
+                <button md-raised-button flex (click)="cadastrar()" color="primary">Cadastrar</button>    
+            </div>
+        </div>
+    </md-card>
+</div>

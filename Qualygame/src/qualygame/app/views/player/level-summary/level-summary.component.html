@@ -1,0 +1,18 @@
+<md-card class="pad-md" style="height: 100%;">
+    <div flex layout="row" layout-align="center start">
+        <span class="md-title">{{ 'labels.levelSummary' | translate }}</span>
+    </div>
+
+    <div layout="row" style="height: 70%;">
+        <ngx-charts-bar-vertical 
+            *ngIf="levels != null"
+            [results]="levels"
+            [xAxis]="true"
+            [yAxis]="true">
+        </ngx-charts-bar-vertical>
+    </div>
+    
+    <md-card-footer>
+        <md-progress-bar *ngIf="levels == null" mode="indeterminate"></md-progress-bar>
+    </md-card-footer>
+</md-card>

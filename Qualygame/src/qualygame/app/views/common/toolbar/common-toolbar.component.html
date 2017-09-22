@@ -1,0 +1,34 @@
+<md-toolbar color="primary">
+    <div flex="20">
+        Qualygame
+    </div>
+
+    <span flex></span>
+
+    <div flex="30" class="toolbarSearchBox">
+        <md-input-container flex>
+            <input 
+                mdInput 
+                #inputPlayerSearch 
+                placeholder="{{ 'labels.searchPlayer' | translate }}" 
+                name="searchPlayer" 
+                [mdAutocomplete]="autoCompleteSearchPlayer"
+                (keyup)="searchPlayer(inputPlayerSearch)">
+        </md-input-container>
+        <md-autocomplete #autoCompleteSearchPlayer="mdAutocomplete" [displayWith]="displayPlayerSearchAutocomplete">
+            <md-option *ngFor="let player of playersOfSearch" [value]="player" (click)="openPlayerProfilePopup(player)">
+                {{ player.nickname }} 
+            </md-option>
+        </md-autocomplete>
+    </div>
+
+    <span>{{ 'labels.hello' | translate }} {{ loggedUser?.nickname }}
+        <span *ngIf="loggedUser.isPlayer()">, {{ 'labels.yourPontuationIs' | translate }} {{ loggedUser?.totalPontuation }}</span>
+    </span>
+    
+    <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>account_circle</md-icon></button>
+    <md-menu #menu="mdMenu">
+        <button md-menu-item>Item 1</button>
+        <button md-menu-item (click)="logout()">{{ 'labels.exit' | translate }}</button>
+    </md-menu>
+</md-toolbar>

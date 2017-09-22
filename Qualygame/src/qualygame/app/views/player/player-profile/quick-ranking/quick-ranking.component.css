@@ -1,0 +1,43 @@
+.rankingRow 
+{
+    margin-bottom: 3px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    height: 50px;
+}
+
+.position_0
+{
+    background-color: gold;
+}
+
+.position_1
+{
+    background-color: silver;
+}
+
+.position_2
+{
+    background-color: goldenrod;
+}
+
+.position_white
+{
+    background-color: white;
+}
+
+.position_user
+{
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.rankingRowPositionNumber
+{
+    border: 2px solid #ccc; 
+    background-color:white; 
+    border-radius: 50%; 
+    height:40px; 
+    width: 40px;
+    margin-right: 10px;
+}

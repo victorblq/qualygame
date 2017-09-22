@@ -1,0 +1,44 @@
+{
+    "messages": {
+        "allFields": "Você deve preencher todos os campos",
+        "firebase": {
+            "auth/invalid-email": "Email inválido",
+            "auth/user-not-found": "Usuário não encontrado"
+        }
+    },
+    "labels": {
+        "searchPlayer": "Procurar jogador",
+        "hello": "Olá",
+        "yourPontuationIs": "sua pontuação atual é: ",
+        "exit": "Sair",
+        "lastCommits": "Ultimos commits",
+        "lastPontuations": "Ultimas pontuações",
+        "teamSummary": "Resumo do time",
+        "levelSummary": "Panorama de níveis",
+        "badges": "Medalhas",
+        "userWithoutBadges": "Esse usuário ainda não tem medalhas :(",
+        "ranking": "Ranking",
+        "points": "Pontos",
+        "analyzeCommit": "Analizar commit",
+        "reviewCommit": "Revisar commit",
+        "date": "Data",
+        "project": "Projeto",
+        "iteration": "Ciclo",
+        "message": "Mensagem",
+        "commitedArtifacts": "Artefatos do commit",
+        "code": "Código"
+    },
+    "badgeDescription": {
+        "first_commit": "Primeiro commit",
+        "level_5": "Atingiu o nível 5"
+    },
+    "enums":{
+        "ANALYZED": "Analisado",
+        "OPEN": "Aberto",
+        "VALID": "Valida",
+        "REVOKED": "Revogada"
+    },
+    "actions":{
+        "COMMIT": "Commit"
+    }
+}

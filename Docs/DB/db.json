@@ -1,0 +1,146 @@
+"users":
+{
+	"nickname": string | objectId
+	{
+		"name": string | index,
+		"email": string,
+		"password": string,
+        "birthdate": Date,
+        "photo": string,
+        "status": string (ACTIVE, INACTIVE),
+        "profile": string,
+        "totalPontuation": number,
+        "badges": 
+        {
+            "objectId": string | objectId
+			{
+				"name": string,
+				"value": number,
+				"apply": string | (PONTUATION, LEVEL),
+				"condition": string | (GREATER, LOWER),
+				"icon": string
+			}
+        },
+        "pontuation":
+        {
+            "objectId": string | objectId
+            {
+                "value": number,
+                "action": string,
+                "status": string, (VALID, REVOKED),
+                "hash": string | commitRef
+            }
+        }
+	}
+}
+
+"commits":
+{
+	"objectId": string | objectId | userRef
+	{
+        "hash": string | commitRef,
+        "iteration": string | iterationRef,
+        "date": Date,
+        "message": string,
+        "status": string (OPEN, ANALYZED),
+        "user": string | userRef,
+        "commitedArtifacts":
+        {
+            "objectId": string | objectId
+            {
+                "code": string,
+                "name": string,
+                "weight": number,
+                "filePath": string,
+                "status": string (REVIEWED, OPEN),
+                "errors":
+                {
+                    "objectId": string | objectId
+                    {
+                        "code": string | starts with '#',
+                        "message": string
+                    }
+                }            		
+            }  
+        }
+	}
+}
+
+"teams":
+{
+	"name": string | objectId 
+	{
+		"members":
+		{
+			"0": string | userRef,
+            "1": string | userRef
+            ...
+		}
+    },
+    "projects":
+    {
+        "name": string | objectId
+        {
+            "description": string,
+            "status": string (OPEN, IN_PROGRESS, FINISHED)
+            "iterations":
+            {
+                "objectId":
+                {
+                    "name": string,
+                    "status": string (OPEN, IN_PROGRESS, FINISHED)					
+                }
+            }
+        }
+    }
+}
+
+
+
+"actions":
+{
+	"objectId": string | objectId
+	{
+		"name": string,
+		"pontuation": number	
+	}
+}
+
+"badges":
+{
+	"objectId": string | objectId
+	{
+		"name": string,
+		"value": number,
+		"apply": string | (PONTUATION, LEVEL),
+		"condition": string | (GREATER, LOWER),
+		"icon": string
+	}
+}
+
+//STATIC LISTS
+"UserProfiles": [
+	ADMINISTRATOR,
+	QUALITY_MANAGER,
+	PLAYER
+]
+
+"Actions": [
+	COMMIT,
+	REVIEW,
+	ITERATION_FINISH,
+	PROJECT_FINISH,
+	NON-COMPLIANCE,
+	BUG_REPORT,
+	INCORRECT_COMMIT
+]
+
+"PontuationStatus": [
+	VALID,
+	REVOKED
+]
+
+"UserStatus": [
+	ACTIVE,
+	INACTIVE
+]

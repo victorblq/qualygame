@@ -1,0 +1,62 @@
+<md-toolbar color="primary">
+    <h3>Commit: {{ commit.hash }}</h3>
+</md-toolbar>
+
+<div layout="row" layout-margin>
+    <div layout="column" flex="15">
+        <span class="label">{{ 'labels.date' | translate }}</span>
+        <span>{{ commit.date | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+    </div>
+
+    <div layout="column" flex="15">
+        <span class="label">{{ 'labels.project' | translate }}</span>
+        <span>{{ commit.iteration.project.name }}</span>
+    </div>
+
+    <div layout="column" flex="15">
+        <span class="label">{{ 'labels.iteration' | translate }}</span>
+        <span>{{ commit.iteration.name }}</span>
+    </div>
+
+    <div layout="column" flex="55">
+        <span class="label">{{ 'labels.message' | translate }}</span>
+        <span>{{ commit.message }}</span>
+    </div>
+</div>
+
+<div layout="column" layout-margin>
+    <h4>{{ 'labels.commitedArtifacts' | translate }}</h4>
+    <md-expansion-panel *ngFor="let commitedArtifact of commit.commitedArtifacts" [hideToggle]="true" #expansionPanel 
+        [disabled]="CommitedArtifactStatus[commitedArtifact.status] == CommitedArtifactStatus.CORRECT">
+        <md-expansion-panel-header>
+            <md-panel-title>
+                    {{ commitedArtifact.artifact.code }} - {{ commitedArtifact.artifact.name }}
+            </md-panel-title>
+            <button md-icon-button (click)="addCommitedArtifactError(commitedArtifact);$event.stopPropagation();" 
+                *ngIf="expansionPanel.expanded == true && CommitedArtifactStatus[commitedArtifact.status] != CommitedArtifactStatus.CORRECT">
+                <md-icon>add</md-icon>
+            </button>
+            <button md-icon-button (click)="$event.stopPropagation()"
+                *ngIf="CommitedArtifactStatus[commitedArtifact.status] == CommitedArtifactStatus.OPEN">
+                <md-icon>check</md-icon>
+            </button>
+            <button md-icon-button (click)="$event.stopPropagation()"
+                *ngIf="CommitedArtifactStatus[commitedArtifact.status] != CommitedArtifactStatus.OPEN">
+                <md-icon>edit</md-icon>
+            </button>
+        </md-expansion-panel-header>
+
+        <div layout="row" layout-margin layout-align="start center" *ngFor="let commitedArtifactError of commitedArtifact.errors">
+            <md-input-container flex="10">
+                <input mdInput placeholder="{{ 'labels.code' | translate }}" name="errorCode" [(ngModel)]="commitedArtifactError.code">
+            </md-input-container>
+
+            <md-input-container flex>
+                <input mdInput placeholder="{{ 'labels.message' | translate }}" name="errorMessage" [(ngModel)]="commitedArtifactError.message">
+            </md-input-container>
+
+            <button md-icon-button><md-icon>delete</md-icon></button>
+            <button md-icon-button><md-icon>check</md-icon></button>
+        </div>
+    </md-expansion-panel>
+</div>
