@@ -1,3 +1,5 @@
+import { Artifact } from './../../../entity/artifact/Artifact';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { CommitedArtifactError } from './../../../entity/commit/CommitedArtifactError';
 import { CommitedArtifactStatus } from './../../../entity/commit/CommitedArtifactStatus';
 import { CommitedArtifact } from './../../../entity/commit/CommitedArtifact';
@@ -31,6 +33,7 @@ export class AnalyzeCommitPopupComponent implements OnInit
      * 
      */
     constructor(
+        private afDatabase: AngularFireDatabase,
         @Inject(MD_DIALOG_DATA) data: {commit: Commit}
     ) 
     { 
@@ -63,7 +66,71 @@ export class AnalyzeCommitPopupComponent implements OnInit
             commitedArtifact.$errors = new Array<CommitedArtifactError>();
         }
 
-        let commitedArtifactError = new CommitedArtifactError(null, null);
+        let commitedArtifactError = new CommitedArtifactError(null, null, null);
         commitedArtifact.$errors.push(commitedArtifactError);
+    }
+
+    /**
+     * 
+     * @param commitedArtifact 
+     * @param commitedArtifactError 
+     */
+    removeCommitedArtifactError(commitedArtifact: CommitedArtifact, commitedArtifactError: CommitedArtifactError): void
+    {
+        if(commitedArtifactError.$key != null)
+        {
+            this.afDatabase.object("/commits/"+this.commit.$hash+"/commitedArtifacts/"+commitedArtifact.$key+"/errors/"+commitedArtifactError.$key)
+            .remove();
+            commitedArtifact.$errors.splice(commitedArtifact.$errors.indexOf(commitedArtifactError), 1);
+        }
+        else
+        {
+            commitedArtifact.$errors.splice(commitedArtifact.$errors.indexOf(commitedArtifactError), 1);
+        }
+    }
+
+    /**
+     * 
+     * @param commitedArtifact 
+     * @param commitedArtifactError 
+     */
+    saveCommitedArtifactError(commitedArtifact: CommitedArtifact, commitedArtifactError: CommitedArtifactError): void
+    {
+        this.afDatabase.list("/commits/"+this.commit.$hash+"/commitedArtifacts/"+commitedArtifact.$key+"/errors")
+        .push(commitedArtifactError)
+        .then( ( commitedArtifactErrorInserted ) => {
+            commitedArtifactError.$key = commitedArtifactErrorInserted.key;
+        });
+    }
+
+    /**
+     * 
+     * @param commitedArtifact 
+     */
+    setCommitedArtifactCorrect(commitedArtifact): void
+    {
+        commitedArtifact.$status = CommitedArtifactStatus.CORRECT;
+        commitedArtifact.$errors = [];
+
+        this.afDatabase.object("/commits/"+this.commit.$hash+"/commitedArtifacts/"+commitedArtifact.$key)
+        .set(commitedArtifact.toFirebase())
+        .then( () => {
+            commitedArtifact.$status = CommitedArtifactStatus[CommitedArtifactStatus.CORRECT];
+        } );
+    }
+
+    /**
+     * 
+     * @param commitedArtifact 
+     */
+    editCommitedArtifact(commitedArtifact): void
+    {
+        commitedArtifact.$status = CommitedArtifactStatus.OPEN;
+
+        this.afDatabase.object("/commits/"+this.commit.$hash+"/commitedArtifacts/"+commitedArtifact.$key)
+        .set(commitedArtifact.toFirebase())
+        .then( () => {
+            commitedArtifact.$status = CommitedArtifactStatus[CommitedArtifactStatus.OPEN];
+        });
     }
 }

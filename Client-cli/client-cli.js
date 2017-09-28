@@ -7,16 +7,19 @@ admin.initializeApp({
   databaseURL: "https://qualygame.firebaseio.com/"
 });
 
-let user = process.argv[2];
+let hash = process.argv[2];
+let userEmail = process.argv[3];
 
-admin.database().ref("/commits/Pigmeo/hashTeste123")
-.set({"teste": "teste"})
-.then( (result) => {
-    console.log(result);
-    process.exit(0);
-})
-.catch( (exception) => {
-    console.log(exception);
-    process.exit(1);
-});
+console.log(hash);
+console.log(userEmail);
+// admin.database().ref("/commits/")
+// .set({"teste": "teste"})
+// .then( (result) => {
+//     console.log(result);
+//     process.exit(0);
+// })
+// .catch( (exception) => {
+//     console.log(exception);
+//     process.exit(1);
+// });
 

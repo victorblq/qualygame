@@ -47,20 +47,33 @@ export class PlayerLastCommitsComponent implements OnInit
      */
     ngOnInit() 
     {
-        this.afDatabase.list("/commits/"+this.loggedUser.$nickname)
+        this.afDatabase.list("/commits/")
         .subscribe( ( commitList ) => {
+            let userCommits = commitList.filter( ( commitToFind ) => {
+                if(commitToFind.user == this.loggedUser.$nickname)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+
             this.lastCommits = new Array<Commit>();
             
-            commitList.forEach( ( commit ) => {
+            userCommits.forEach( ( commit ) => {
                 this.lastCommits.push( 
                     new Commit( 
                         commit.hash, 
                         commit.message, 
-                        commit.timestamp, 
+                        commit.date, 
                         commit.commitedArtifacts, 
-                        commit.status 
+                        commit.status,
+                        commit.user,
+                        commit.iteration 
                     )
-                 );
+                );
             });
         });
     }

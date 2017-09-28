@@ -27,20 +27,21 @@
 <div layout="column" layout-margin>
     <h4>{{ 'labels.commitedArtifacts' | translate }}</h4>
     <md-expansion-panel *ngFor="let commitedArtifact of commit.commitedArtifacts" [hideToggle]="true" #expansionPanel 
-        [disabled]="CommitedArtifactStatus[commitedArtifact.status] == CommitedArtifactStatus.CORRECT">
+        [disabled]="CommitedArtifactStatus[commitedArtifact.status] == CommitedArtifactStatus.CORRECT" 
+        [expanded]="commitedArtifact.errors.length > 0">
         <md-expansion-panel-header>
             <md-panel-title>
-                    {{ commitedArtifact.artifact.code }} - {{ commitedArtifact.artifact.name }}
+                {{ commitedArtifact.artifact.code }} - {{ commitedArtifact.artifact.name }}
             </md-panel-title>
             <button md-icon-button (click)="addCommitedArtifactError(commitedArtifact);$event.stopPropagation();" 
                 *ngIf="expansionPanel.expanded == true && CommitedArtifactStatus[commitedArtifact.status] != CommitedArtifactStatus.CORRECT">
                 <md-icon>add</md-icon>
             </button>
-            <button md-icon-button (click)="$event.stopPropagation()"
+            <button md-icon-button (click)="setCommitedArtifactCorrect(commitedArtifact);$event.stopPropagation()"
                 *ngIf="CommitedArtifactStatus[commitedArtifact.status] == CommitedArtifactStatus.OPEN">
                 <md-icon>check</md-icon>
             </button>
-            <button md-icon-button (click)="$event.stopPropagation()"
+            <button md-icon-button (click)="editCommitedArtifact(commitedArtifact);$event.stopPropagation()"
                 *ngIf="CommitedArtifactStatus[commitedArtifact.status] != CommitedArtifactStatus.OPEN">
                 <md-icon>edit</md-icon>
             </button>
@@ -55,8 +56,12 @@
                 <input mdInput placeholder="{{ 'labels.message' | translate }}" name="errorMessage" [(ngModel)]="commitedArtifactError.message">
             </md-input-container>
 
-            <button md-icon-button><md-icon>delete</md-icon></button>
-            <button md-icon-button><md-icon>check</md-icon></button>
+            <button md-icon-button (click)="removeCommitedArtifactError(commitedArtifact, commitedArtifactError)">
+                <md-icon>delete</md-icon>
+            </button>
+            <button md-icon-button *ngIf="commitedArtifactError.key == null" (click)="saveCommitedArtifactError(commitedArtifact, commitedArtifactError)">
+                <md-icon>check</md-icon>
+            </button>
         </div>
     </md-expansion-panel>
 </div>
