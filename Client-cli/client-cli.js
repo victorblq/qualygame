@@ -54,7 +54,7 @@ function findTeamInteration(user)
                     {
                         if(foundTeam.projects[i].iterations[key].status == 1)
                         {
-                            activeIteration = foundTeam.projects[i].iterations[key];
+                            activeIteration = key;
                             return true;
                         }
                     }
@@ -66,27 +66,63 @@ function findTeamInteration(user)
                 prepareCommitedArtifacts(user, activeIteration);
             }
         }
-        process.exit(0);
     });
 }
 
 function prepareCommitedArtifacts(user, activeIteration)
 {
+    admin.database().ref("/artifacts")
+    .once("value", ( result ) => {
+        let artifacts = result.val();
+        
+        let files = gitlogfiles.split(",");
 
+        let commitedArtifacts =  [];
+
+        for(let key in artifacts)
+        {
+            for(let i = 0; i < files.length; i++)
+            {
+                let commitedFile = files[i].split("/");
+                let commitedFileName = commitedFile[commitedFile.length - 1];
+                
+                if(artifacts[key].code == commitedFileName.split("-")[0])
+                {
+                    commitedArtifacts.push({
+                        artifact: artifacts[key].code,
+                        filePath: files[i],
+                        status: 0
+                    });
+                }
+            }
+        };
+
+        persistCommit(user, activeIteration, commitedArtifacts);
+
+    });
 }
-// admin.database().ref("/testes/")
-//     .set({
-//         hash: hash,
-//         message: message,
-//         userEmail: userEmail,
-//         date: new Date(date).getTime(),
-//         gitlogfiles: gitlogfiles
-//     })
-//     .then((result) => {
-//         console.log(result);
-//         process.exit(0);
-//     })
-//     .catch((exception) => {
-//         console.log(exception);
-//         process.exit(1);
-//     });
+
+function persistCommit(user, activeIteration, commitedArtifacts)
+{
+    let commit = {
+        date: new Date(date).getTime(),
+        hash: hash,
+        iteration: activeIteration,
+        message: message,
+        status: 0,
+        user: user.nickname
+    }
+
+    admin.database().ref("/commits/"+commit.hash)
+    .set(commit)
+    .then( ( result ) => {
+        admin.database().ref("/commits/"+commit.hash+"/commitedArtifacts")
+        .set(commitedArtifacts)
+        .then( (result) => {
+            process.exit(0);
+        })
+        .catch( ( exception ) => {
+            console.log(exception);
+        });
+    });
+}
