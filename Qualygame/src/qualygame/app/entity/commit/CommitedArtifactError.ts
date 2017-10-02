@@ -6,6 +6,10 @@ export class CommitedArtifactError
     /**
      * 
      */
+    private key: string;
+    /**
+     * 
+     */
     private code: string;
 
     /**
@@ -18,14 +22,17 @@ export class CommitedArtifactError
      *===================================================================*/
     /**
      * 
+     * @param key 
      * @param code 
      * @param message 
      */
     constructor(
+        key: string,
         code: string,
         message: string
     )
     {
+        this.key = key;
         this.code = code;
         this.message = message;
     }
@@ -33,6 +40,22 @@ export class CommitedArtifactError
     /*===================================================================
      *                         GETTERS AND SETTERS
      *===================================================================*/
+    /**
+     * 
+     */
+    public get $key(): string 
+    {
+		return this.key;
+	}
+
+    /**
+     * 
+     */
+    public set $key(value: string) 
+    {
+		this.key = value;
+	}
+    
     /**
      * 
      */

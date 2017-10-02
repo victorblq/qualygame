@@ -10,6 +10,11 @@ export class CommitedArtifact
     /**
      * 
      */
+    private key: string;
+
+    /**
+     * 
+     */
     private artifact: Artifact;
 
     /**
@@ -29,19 +34,56 @@ export class CommitedArtifact
     /*===================================================================
      *                            CONSTRUCTOR
      *===================================================================*/
+    /**
+     * 
+     * @param filePath 
+     * @param status 
+     * @param artifact 
+     */
     constructor(
-        filePath: string,
-        status: string,
-        artifact: Artifact
+        key?: string,
+        filePath?: string,
+        status?: string,
+        artifact?: Artifact,
+        errors?: any
     )
     {
+        this.key = key;
         this.filePath = filePath;
         this.status = CommitedArtifactStatus[status];
         this.artifact = artifact;
+
+        this.errors = new Array<CommitedArtifactError>();
+
+        for(let key in errors)
+        {
+            let commitedArtifactError = new CommitedArtifactError(
+                key,
+                errors[key].code,
+                errors[key].message
+            );
+            this.errors.push(commitedArtifactError);
+        }
     }
     /*===================================================================
      *                         GETTERS AND SETTERS
      *===================================================================*/
+    /**
+     * 
+     */ 
+    public get $key(): string 
+    {
+		return this.key;
+	}
+
+    /**
+     * 
+     */
+    public set $key(value: string) 
+    {
+		this.key = value;
+	}
+    
     /**
      * 
      */
@@ -109,5 +151,13 @@ export class CommitedArtifact
     /*===================================================================
      *                             BEHAVIOUR
      *===================================================================*/
-
+    public toFirebase()
+    {
+        return{
+            artifact: this.artifact.$code,
+            status: CommitedArtifactStatus[CommitedArtifactStatus[this.status]],
+            errors: this.errors,
+            filePath: this.filePath
+        }
+    }
 }

@@ -19,11 +19,6 @@ export class Commit
     private iteration: Iteration;
 
     /**
-     * Timestamp date needed to stores on firebase
-     */
-    private timestamp: number;
-
-    /**
      * 
      */
     private date: Date;
@@ -55,14 +50,16 @@ export class Commit
      * 
      * @param hash 
      * @param message 
-     * @param timestamp 
+     * @param date 
      * @param commitedArtifacts 
      * @param status 
+     * @param user 
+     * @param iteration 
      */
     constructor(
         hash?: string,
         message?: string,
-        timestamp?: number,
+        date?: number,
         commitedArtifacts?: Array<CommitedArtifact>,
         status?: string,
         user?: string,
@@ -71,8 +68,7 @@ export class Commit
     {
         this.hash = hash;
         this.message = message;
-        this.timestamp = timestamp;
-        this.date = new Date( timestamp );
+        this.date = new Date( date );
         this.commitedArtifacts = commitedArtifacts;
         this.status = CommitStatus[status];
         this.user = new User(user);
@@ -112,22 +108,6 @@ export class Commit
     public set $iteration( value: Iteration )
     {
         this.iteration = value;
-    }
-
-    /**
-     * 
-     */
-    public get $timestamp(): number
-    {
-        return this.timestamp;
-    }
-
-    /**
-     * 
-     */
-    public set $timestamp( value: number )
-    {
-        this.timestamp = value;
     }
 
     /**
@@ -218,7 +198,7 @@ export class Commit
         return {
             hash: this.hash,
             message: this.message,
-            date: this.timestamp,
+            date: this.date.getTime(),
             status: CommitStatus[this.status],
             user: this.user.$nickname,
             iteration: this.iteration.$key

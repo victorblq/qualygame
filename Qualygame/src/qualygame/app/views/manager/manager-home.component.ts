@@ -142,9 +142,11 @@ export class ManagerHomeComponent implements OnInit
                     let artifact = new Artifact(artifactFound.code, artifactFound.name, artifactFound.weight);
     
                     let commitedArtifact = new CommitedArtifact(
+                        key,
                         commitedArtifacts[key].filePath, 
                         commitedArtifacts[key].status,
-                        artifact
+                        artifact,
+                        commitedArtifacts[key].errors
                     );
     
                     commit.$commitedArtifacts.push(commitedArtifact);
@@ -170,8 +172,8 @@ export class ManagerHomeComponent implements OnInit
 
     saveCommits()
     {
-        let commitedArtifact = new CommitedArtifact("lol.com.br/file", "0", new Artifact("CCQB"));
-        let commitedArtifact2 = new CommitedArtifact("teste.com.br/file", "0", new Artifact("CCQPT"));
+        let commitedArtifact = new CommitedArtifact("sadasdsa", "lol.com.br/file", "0", new Artifact("CCQB"), null);
+        let commitedArtifact2 = new CommitedArtifact("sadasdsadsadsa", "teste.com.br/file", "0", new Artifact("CCQPT"), null);
         
         let commit1 = new Commit(
                 "teste1234", 

@@ -1,0 +1,12 @@
+#!/bin/bash
+MESSAGE=`git log -1 HEAD --pretty=format:%s`
+HASH=`git log -1 HEAD --pretty=format:%H`
+USEREMAIL=`git log -1 HEAD --pretty=format:%ce`
+DATE=`git log -1 HEAD --pretty=format:%cd`
+GITLOGFILES=`git diff-tree --no-commit-id --name-only -r $HASH | tr '\n' ','`
+
+if [[ $MESSAGE == *"#gamify"* ]]; then
+	`node /opt/qualygame/cli/client-cli.js $HASH "$MESSAGE" $USEREMAIL "$DATE" $GITLOGFILES`
+else
+	echo "Sem Tag" >> testeTag.txt
+fi
