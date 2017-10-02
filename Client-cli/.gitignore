@@ -40,3 +40,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Firebase admin file
+qualygame-firebase-adminsdk.json
