@@ -119,10 +119,47 @@ function persistCommit(user, activeIteration, commitedArtifacts)
         admin.database().ref("/commits/"+commit.hash+"/commitedArtifacts")
         .set(commitedArtifacts)
         .then( (result) => {
-            process.exit(0);
+            if(commitedArtifacts.length == 0)
+            {   
+                persistCommitPontuation(user, commit, "COMMIT_WITHOUT_ARTIFACT");
+            }
+            else
+            {
+                persistCommitPontuation(user, commit, "COMMIT");
+            }
         })
         .catch( ( exception ) => {
             console.log(exception);
         });
+    });
+}
+
+function persistCommitPontuation(user, commit, actionName)
+{
+    admin.database().ref("/actions")
+    .once("value", ( result ) => {
+        let action = null;
+
+        for(let key in result.val())
+        {
+            if(result.val()[key].name == actionName)
+            {
+                action = result.val()[key];
+            }
+        }
+
+        let pontuation = {
+            action: action.name,
+            commit: commit.hash,
+            status: 0,
+            timestamp: new Date().getTime(),
+            value: action.pontuation
+        }
+
+        admin.database().ref("/users/"+user.nickname+"/pontuation")
+        .push(pontuation)
+        .then( ( result ) => {
+            process.exit(0);
+        })
     });
 }
