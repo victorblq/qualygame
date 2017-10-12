@@ -39,6 +39,8 @@
         "REVOKED": "Revogada"
     },
     "actions":{
-        "COMMIT": "Commit"
+        "COMMIT": "Commit",
+        "ARTIFACT_REVIEWED": "Artefato revisado",
+        "COMMIT_WITHOUT_ARTIFACT": "Commit sem artefato"
     }
 }

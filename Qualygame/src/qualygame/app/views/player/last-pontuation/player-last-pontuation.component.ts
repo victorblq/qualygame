@@ -70,19 +70,39 @@ export class PlayerLastPontuationComponent implements OnInit
         this.afDatabase.list("/users/"+this.loggedUser.$nickname+"/pontuation")
         .subscribe( ( pontuationList ) => {
             this.lastPontuation = new Array<Pontuation>();
-
-            pontuationList.forEach( ( pontuation ) => {
+            pontuationList = pontuationList.sort( (pontuationA, pontuationB) => {
+                if(pontuationA.timestamp > pontuationB.timestamp)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            });
+            
+            for(let i = 0; i < pontuationList.length; i++)
+            {
                 this.lastPontuation.push( 
                     new Pontuation( 
-                        pontuation.$key, 
-                        pontuation.value, 
-                        pontuation.status, 
-                        this.findAction(pontuation.action), 
-                        pontuation.commit, 
-                        pontuation.timestamp 
+                        pontuationList[i].$key, 
+                        pontuationList[i].value, 
+                        pontuationList[i].status, 
+                        this.findAction(pontuationList[i].action), 
+                        pontuationList[i].commit, 
+                        pontuationList[i].timestamp,
+                        pontuationList[i].artifact
                     ) 
                 );
-            });
+
+                /**
+                 * O i tem que começar com 0 e aqui verificar com 4 pq pode ter 1 pontuação apenas
+                 */
+                if(i > 4)
+                {
+                    break;
+                }
+            }
         });
 
         

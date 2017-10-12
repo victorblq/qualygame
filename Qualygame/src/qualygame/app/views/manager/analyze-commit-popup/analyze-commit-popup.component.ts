@@ -1,3 +1,6 @@
+import { PontuationService } from './../../../service/PontuationService';
+import { Action } from './../../../entity/action/Action';
+import { Pontuation } from './../../../entity/pontuation/Pontuation';
 import { Artifact } from './../../../entity/artifact/Artifact';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { CommitedArtifactError } from './../../../entity/commit/CommitedArtifactError';
@@ -34,6 +37,7 @@ export class AnalyzeCommitPopupComponent implements OnInit
      */
     constructor(
         private afDatabase: AngularFireDatabase,
+        private pontuationService: PontuationService,
         @Inject(MD_DIALOG_DATA) data: {commit: Commit}
     ) 
     { 
@@ -50,10 +54,7 @@ export class AnalyzeCommitPopupComponent implements OnInit
     /**
      * 
      */
-    ngOnInit() 
-    { 
-        console.log(this.commit);
-    }
+    ngOnInit(){}
 
     /**
      * 
@@ -100,6 +101,8 @@ export class AnalyzeCommitPopupComponent implements OnInit
         .push(commitedArtifactError)
         .then( ( commitedArtifactErrorInserted ) => {
             commitedArtifactError.$key = commitedArtifactErrorInserted.key;
+
+            this.pontuationService.insertPontuation(this.commit, commitedArtifact.$key, "ARTIFACT_ERROR");
         });
     }
 
@@ -116,7 +119,10 @@ export class AnalyzeCommitPopupComponent implements OnInit
         .set(commitedArtifact.toFirebase())
         .then( () => {
             commitedArtifact.$status = CommitedArtifactStatus[CommitedArtifactStatus.CORRECT];
+
+            this.pontuationService.insertPontuation(this.commit, commitedArtifact.$key, "ARTIFACT_REVIEWED");
         } );
+
     }
 
     /**
@@ -131,6 +137,28 @@ export class AnalyzeCommitPopupComponent implements OnInit
         .set(commitedArtifact.toFirebase())
         .then( () => {
             commitedArtifact.$status = CommitedArtifactStatus[CommitedArtifactStatus.OPEN];
+
+            this.afDatabase.database.ref("/users/"+this.commit.$user.$nickname+"/pontuation/")
+            .once("value", ( pontuations ) => {
+                let pontuation = null;
+                for(let key in pontuations.val())
+                {
+                    if( pontuations.val()[key].commit == this.commit.$hash && 
+                        pontuations.val()[key].action == "ARTIFACT_REVIEWED" &&
+                        pontuations.val()[key].commitedArtifact == commitedArtifact.$key)
+                    {
+                        pontuation = pontuations.val()[key];
+                        pontuation.$key = key;
+                    }
+                }
+
+                if( pontuation != null && pontuation.$key != null )
+                {
+                    this.afDatabase.object("/users/"+this.commit.$user.$nickname+"/pontuation/"+pontuation.$key)
+                    .remove();
+                }
+                
+            } );
         });
     }
 }

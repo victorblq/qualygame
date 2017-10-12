@@ -129,7 +129,7 @@ function persistCommit(user, activeIteration, commitedArtifacts)
             }
         })
         .catch( ( exception ) => {
-            console.log(exception);
+            console.error(exception);
         });
     });
 }
@@ -160,6 +160,6 @@ function persistCommitPontuation(user, commit, actionName)
         .push(pontuation)
         .then( ( result ) => {
             process.exit(0);
-        })
+        });
     });
 }

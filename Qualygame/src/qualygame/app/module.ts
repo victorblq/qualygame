@@ -1,3 +1,4 @@
+import { PontuationService } from './service/PontuationService';
 /*=========================================================================
 *=                          ANGULAR MODULES                              =
 *=========================================================================*/
@@ -133,6 +134,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AngularFireAuth,
         AngularFireDatabase,
         appRoutingProviders,
+        PontuationService,
         StringService,
         UserService,
         {provide: MD_DIALOG_DATA, useValue: {} }

@@ -1,3 +1,4 @@
+import { CommitedArtifact } from './../commit/CommitedArtifact';
 import { Commit } from './../commit/Commit';
 import { Action } from './../action/Action';
 import { PontuationStatus } from './PontuationStatus';
@@ -41,6 +42,11 @@ export class Pontuation
      * 
      */
     private date: Date;
+
+    /**
+     * 
+     */
+    private commitedArtifact: CommitedArtifact;
     /*===================================================================
      *                            CONSTRUCTOR
      *===================================================================*/
@@ -55,7 +61,8 @@ export class Pontuation
         status: string,
         action: Action,
         commit: string,
-        timestamp: number
+        timestamp: number,
+        commitedArtifact: string
     )
     {
         this.key = key;
@@ -65,6 +72,7 @@ export class Pontuation
         this.commit = new Commit( commit );
         this.timestamp = timestamp;
         this.date = new Date( timestamp );
+        this.commitedArtifact = new CommitedArtifact(commitedArtifact)
     }
 
     /*===================================================================
@@ -167,6 +175,23 @@ export class Pontuation
         this.date = value;
     }
 
+    /**
+     * 
+     */
+    public get $key(): string 
+    {
+		return this.key;
+	}
+
+    /**
+     * 
+     */
+    public set $key(value: string) 
+    {
+		this.key = value;
+	}
+    
+
     /*===================================================================
      *                              BEHAVIOUR
      *===================================================================*/
@@ -174,10 +199,11 @@ export class Pontuation
     {
         return {
             value: this.value,
-            status: this.status,
+            status: PontuationStatus[this.status],
             action: this.action.$key,
             commit: this.commit.$hash,
-            timestamp: this.date.getTime()
+            timestamp: this.date.getTime(),
+            commitedArtifact: this.commitedArtifact.$key
         }
     }
 }

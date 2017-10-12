@@ -49,11 +49,11 @@
 
         <div layout="row" layout-margin layout-align="start center" *ngFor="let commitedArtifactError of commitedArtifact.errors">
             <md-input-container flex="10">
-                <input mdInput placeholder="{{ 'labels.code' | translate }}" name="errorCode" [(ngModel)]="commitedArtifactError.code">
+                <input mdInput placeholder="{{ 'labels.code' | translate }}" name="errorCode" [(ngModel)]="commitedArtifactError.code" [disabled]="commitedArtifactError.key != null">
             </md-input-container>
 
             <md-input-container flex>
-                <input mdInput placeholder="{{ 'labels.message' | translate }}" name="errorMessage" [(ngModel)]="commitedArtifactError.message">
+                <input mdInput placeholder="{{ 'labels.message' | translate }}" name="errorMessage" [(ngModel)]="commitedArtifactError.message" [disabled]="commitedArtifactError.key != null">
             </md-input-container>
 
             <button md-icon-button (click)="removeCommitedArtifactError(commitedArtifact, commitedArtifactError)">
