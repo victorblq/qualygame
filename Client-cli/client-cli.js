@@ -7,6 +7,7 @@ admin.initializeApp({
     databaseURL: "https://qualygame.firebaseio.com/"
 });
 
+console.log("Qualygame Client-CLI Started");
 //argv[0] is the nodejs home 
 //argv[1] is the script directory (full path)
 let hash = process.argv[2];
@@ -20,7 +21,7 @@ admin.database().ref("/users")
 .equalTo(userEmail)
 .once("child_added", ( result ) => {
     var user = result.val();
-
+    console.log("User found!");    
     findTeamInteration(user);
 });
 
@@ -63,6 +64,7 @@ function findTeamInteration(user)
 
             if(activeIteration != null)
             {
+                console.log("Iteration found!");
                 prepareCommitedArtifacts(user, activeIteration);
             }
         }
@@ -97,6 +99,7 @@ function prepareCommitedArtifacts(user, activeIteration)
             }
         };
 
+        console.log("Commit created!");
         persistCommit(user, activeIteration, commitedArtifacts);
 
     });
@@ -122,9 +125,11 @@ function persistCommit(user, activeIteration, commitedArtifacts)
             if(commitedArtifacts.length == 0)
             {   
                 persistCommitPontuation(user, commit, "COMMIT_WITHOUT_ARTIFACT");
+                console.log("Persisting commit with positive pontuation!");
             }
             else
             {
+                console.log("Persisting commit with negative pontuation!");
                 persistCommitPontuation(user, commit, "COMMIT");
             }
         })
@@ -159,6 +164,7 @@ function persistCommitPontuation(user, commit, actionName)
         admin.database().ref("/users/"+user.nickname+"/pontuation")
         .push(pontuation)
         .then( ( result ) => {
+            console.log("Commit and pontuation persisted! Hash: "+commit.hash);
             process.exit(0);
         });
     });
