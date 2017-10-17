@@ -29,8 +29,9 @@ const routes: Routes = [
             },
             {
                 path: 'users',
-                component: ManagerUsersComponent
-            }
+                pathMatch: 'full',
+                component: ManagerUsersComponent,
+            },
         ]
     }
 ];
