@@ -27,6 +27,11 @@ export class CommonToolbarComponent implements OnInit
      * 
      */
     @ViewChild("inputPlayerSearch") inputPlayerSearch: ElementRef;
+
+    /**
+     * 
+     */
+    @Input("sidenav") sidenav: any;
     
     /**
      * 

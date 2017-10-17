@@ -1,0 +1,48 @@
+<md-card>
+    <div class="pad-sm">
+        <h2>{{ 'labels.users' | translate }}</h2>
+        <table td-data-table>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.name' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.email' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.profile' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.status' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.actions' | translate }}</span>
+            </th>
+
+            <tr td-data-table-row *ngFor="let user of userList">
+                <td>
+                    {{ user.name }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+                <td>
+                    {{ "enums."+UserProfile[user.profile] | translate }}
+                </td>
+                <td>
+                    {{ "enums."+UserStatus[user.status] | translate }}
+                </td>
+                <td>
+                    <button md-icon-button *ngIf="user.status == UserStatus.ACTIVE" (click)="changeUserStatus(user, UserStatus.INACTIVE)">
+                        <md-icon>block</md-icon>
+                    </button>
+
+                    <button md-icon-button *ngIf="user.status == UserStatus.INACTIVE" (click)="changeUserStatus(user, UserStatus.ACTIVE)">
+                        <md-icon>check</md-icon>
+                    </button>
+                    <button md-icon-button (click)="deleteUser(user)"><md-icon>delete</md-icon></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</md-card>
+<button md-fab><md-icon>add</md-icon></button>

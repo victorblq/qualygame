@@ -31,6 +31,7 @@ import {
     MdSnackBarModule,
     MdToolbarModule,
     MdTooltipModule,
+    MdSidenavModule,
     MD_DIALOG_DATA
 } from '@angular/material';
 
@@ -39,7 +40,10 @@ import { RtProgressBarComponent } from 'rt-progress-bar';
 /*=========================================================================
 *=                          COVALENT MODULES                             =
 *=========================================================================*/
-import { CovalentDataTableModule } from '@covalent/core';
+import { 
+    CovalentDataTableModule,
+    CovalentDialogsModule
+} from '@covalent/core';
 
 /*=========================================================================
 *=                          FIREBASE MODULES                             =
@@ -59,9 +63,12 @@ import { environment } from './../../environments/environment';
 *=========================================================================*/
 import { AnalyzeCommitPopupComponent } from './views/manager/analyze-commit-popup/analyze-commit-popup.component';
 import { CommonToolbarComponent } from './views/common/toolbar/common-toolbar.component';
+import { ConfirmDialogComponent } from './views/common/confirm/confirm-dialog.component';
 import { LoginComponent } from './views/login/login.component';
 import { LevelSummaryComponent } from './views/player/level-summary/level-summary.component';
-import { ManagerHomeComponent } from './views/manager/manager-home.component';
+import { ManagerHomeComponent } from './views/manager/manager-home/manager-home.component';
+import { ManagerViewComponent } from './views/manager/manager-view.component';
+import { ManagerUsersComponent } from './views/manager/manager-users/manager-users.component';
 import { QualygameViewComponent } from './views/qualygame-view.component';
 import { QuickRankingComponent } from './views/player/player-profile/quick-ranking/quick-ranking.component';
 import { PlayerBadgesComponent } from './views/player/player-profile/player-badges/player-badges.component';
@@ -87,9 +94,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     declarations: [
         AnalyzeCommitPopupComponent,
         CommonToolbarComponent,
+        ConfirmDialogComponent,
         LoginComponent,
         LevelSummaryComponent,
         ManagerHomeComponent,
+        ManagerUsersComponent,
+        ManagerViewComponent,
         QualygameViewComponent,
         QuickRankingComponent,
         PlayerBadgesComponent,
@@ -105,6 +115,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserModule,
         BrowserAnimationsModule,
         CovalentDataTableModule,
+        CovalentDialogsModule,
         FormsModule,
         HttpClientModule,
         MdAutocompleteModule,
@@ -118,6 +129,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MdMenuModule,
         MdToolbarModule,
         MdTooltipModule,
+        MdSidenavModule,
         MdSnackBarModule,
         MdProgressBarModule,
         NgxChartsModule,
@@ -145,7 +157,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     entryComponents: [
         AnalyzeCommitPopupComponent,
-        PlayerProfileComponent
+        PlayerProfileComponent,
+        ConfirmDialogComponent
     ]
 })
 export class Module { }

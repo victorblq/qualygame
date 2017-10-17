@@ -1,0 +1,19 @@
+<md-sidenav-container class="example-container">
+    <md-sidenav #sidenav class="example-sidenav">
+        <div layout="column">
+            <md-toolbar color="primary">
+                <span>{{ "labels.menu" | translate }}</span>
+            </md-toolbar>
+
+            <div layout="row" *ngFor="let item of sideBarMenus" layout-align="start center" style="height: 55px;">
+                <button md-button flex style="text-align: left;height: 100%;" [routerLink]="item.link" (click)="sidenav.close()">
+                    <md-icon>{{ item.icon }}</md-icon>
+                    {{ item.name | translate }}
+                </button>
+            </div>
+        </div>
+    </md-sidenav>
+    <common-toolbar *ngIf="loggedUser != null" [loggedUser]="loggedUser" [sidenav]="sidenav"></common-toolbar>
+
+    <router-outlet></router-outlet>
+</md-sidenav-container>

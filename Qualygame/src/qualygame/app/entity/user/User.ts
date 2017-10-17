@@ -280,4 +280,32 @@ export class User
     {
         return this.profile == UserProfile.PLAYER;
     }
+
+    /**
+     * 
+     */
+    public toFirebase(): {}
+    {
+        let user: any = {
+            email: this.email,
+            level: this.level,
+            name: this.name,
+            nickname: this.nickname,
+            profile: UserProfile[UserProfile[this.profile]],
+            status: UserStatus[UserStatus[this.status]],
+            totalPontuation: this.totalPontuation,
+        }
+
+        if(this.photo != null)
+        {
+            user.photo = this.photo
+        }
+
+        if(this.pontuation != null)
+        {
+            user.pontuation = this.pontuation;
+        }
+
+        return user;
+    }
 }

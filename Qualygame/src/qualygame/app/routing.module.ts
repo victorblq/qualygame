@@ -4,7 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './views/login/login.component';
 
 import { PlayerHomeComponent } from './views/player/player-home.component';
-import { ManagerHomeComponent } from './views/manager/manager-home.component';
+import { ManagerViewComponent } from './views/manager/manager-view.component';
+import { ManagerHomeComponent } from './views/manager/manager-home/manager-home.component';
+import { ManagerUsersComponent } from './views/manager/manager-users/manager-users.component';
 
 const routes: Routes = [
     {
@@ -18,7 +20,18 @@ const routes: Routes = [
     },
     {
         path: 'manager',
-        component: ManagerHomeComponent,
+        component: ManagerViewComponent,
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                component: ManagerHomeComponent
+            },
+            {
+                path: 'users',
+                component: ManagerUsersComponent
+            }
+        ]
     }
 ];
 

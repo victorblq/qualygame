@@ -1,16 +1,16 @@
-import { Artifact } from './../../entity/artifact/Artifact';
-import { AnalyzeCommitPopupComponent } from './analyze-commit-popup/analyze-commit-popup.component';
+import { Artifact } from './../../../entity/artifact/Artifact';
+import { AnalyzeCommitPopupComponent } from './../analyze-commit-popup/analyze-commit-popup.component';
 import { MdDialog, MdSnackBar } from '@angular/material';
-import { Iteration } from './../../entity/iteration/Iteration';
-import { Project } from './../../entity/project/Project';
-import { Team } from './../../entity/team/Team';
-import { CommitedArtifact } from './../../entity/commit/CommitedArtifact';
-import { Commit } from './../../entity/commit/Commit';
+import { Iteration } from './../../../entity/iteration/Iteration';
+import { Project } from './../../../entity/project/Project';
+import { Team } from './../../../entity/team/Team';
+import { CommitedArtifact } from './../../../entity/commit/CommitedArtifact';
+import { Commit } from './../../../entity/commit/Commit';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { UserService } from './../../service/UserService';
-import { User } from './../../entity/user/User';
+import { UserService } from './../../../service/UserService';
+import { User } from './../../../entity/user/User';
 import { Component, OnInit } from '@angular/core';
 
 @Component( {
@@ -26,12 +26,8 @@ export class ManagerHomeComponent implements OnInit
     /**
      * 
      */
-    private loggedUser: User;
-
-    /**
-     * 
-     */
     private commits: Array<Commit>;
+
     /*===================================================================
      *                            CONSTRUCTOR
      *===================================================================*/
@@ -39,18 +35,11 @@ export class ManagerHomeComponent implements OnInit
      * 
      */
     constructor(
-        private afAuth: AngularFireAuth,
         private afDatabase: AngularFireDatabase,
-        private userService: UserService,
         private router: Router,
         private mdDialog: MdDialog,
         private mdSnackBar: MdSnackBar
-    ) 
-    { 
-        this.userService.userChangedEventSource$.subscribe((loggedUser) => {
-            this.loggedUser = loggedUser;
-        });
-    }
+    ) {}
 
     /*===================================================================
      *                         GETTERS AND SETTERS
@@ -64,8 +53,6 @@ export class ManagerHomeComponent implements OnInit
      */
     ngOnInit() 
     { 
-        this.loggedUser = this.userService.$loggedUser;
-
         this.afDatabase.list("commits")
         .subscribe( ( commits ) => {
             this.commits = new Array<Commit>();

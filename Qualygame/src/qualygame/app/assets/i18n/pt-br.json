@@ -26,7 +26,16 @@
         "iteration": "Ciclo",
         "message": "Mensagem",
         "commitedArtifacts": "Artefatos do commit",
-        "code": "Código"
+        "code": "Código",
+        "menu": "Menu",
+        "users": "Usuários",
+        "teams": "Times",
+        "home": "Home",
+        "name": "Name",
+        "email": "Email",
+        "profile": "Profile",
+        "status": "Status",
+        "actions": "Actions"
     },
     "badgeDescription": {
         "first_commit": "Primeiro commit",
@@ -36,7 +45,12 @@
         "ANALYZED": "Analisado",
         "OPEN": "Aberto",
         "VALID": "Valida",
-        "REVOKED": "Revogada"
+        "REVOKED": "Revogada",
+        "QUALITY_MANAGER": "Gerente de qualidade",
+        "ADMINISTRATOR": "Administrador",
+        "PLAYER": "Jogador",
+        "ACTIVE": "Ativo",
+        "INACTIVE": "Inativo"
     },
     "actions":{
         "COMMIT": "Commit",
