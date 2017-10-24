@@ -86,24 +86,21 @@ export class ManagerHomeComponent implements OnInit
                 return teamToFind.members.indexOf(commit.$user.$nickname) != -1
             });
 
-            team.projects.find( ( projectToFind ) => {
-                for( let i = 0; i < team.projects.length; i++ )
+            for(let key in team.projects)
+            {
+                for(let iterationKey in team.projects[key].iterations)
                 {
-                    for( let key in team.projects[i].iterations)
+                    if(iterationKey == commit.$iteration.$key)
                     {
-                        if(key == commit.$iteration.$key)
-                        {
-                            commit.$iteration = new Iteration(
-                                key,
-                                team.projects[i].iterations[key].name,
-                                team.projects[i].iterations[key].status,
-                                team.projects[i].name
-                            );
-                        }
+                        commit.$iteration = new Iteration(
+                            iterationKey,
+                            team.projects[key].iterations[iterationKey].name,
+                            team.projects[key].iterations[iterationKey].status,
+                            team.projects[key].name
+                        );
                     }
                 }
-            });
-
+            }
         });
     }
 
@@ -157,6 +154,9 @@ export class ManagerHomeComponent implements OnInit
 
     }
 
+    /**
+     * 
+     */
     saveCommits()
     {
         let commitedArtifact = new CommitedArtifact("sadasdsa", "lol.com.br/file", "0", new Artifact("CCQB"), null);
@@ -192,7 +192,7 @@ export class ManagerHomeComponent implements OnInit
 
         // team.$members = members;
 
-        let iteration1 = new Iteration(null, "Sprint 02", "0");
+        let iteration1 = new Iteration(null, "Sprint 02", 0);
         
         // let projects = new Array<Project>();
 

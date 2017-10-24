@@ -202,7 +202,7 @@ export class User
      */
     public set $profile( value: UserProfile )
     {
-        this.profile = value;
+        this.profile = this.profile = UserProfile[UserProfile[value]];;
     }
 
     /**

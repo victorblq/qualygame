@@ -9,6 +9,11 @@ export class Team
     /**
      * 
      */
+    private key: string;
+
+    /**
+     * 
+     */
     private name: string;
 
     /**
@@ -25,16 +30,19 @@ export class Team
      *                            CONSTRUCTOR
      *===================================================================*/
     public constructor(
+        key?: string,
         name?: string,
         members?: Array<string>,
         projects?: Array<string>
     )
     {
+        this.key = key;
         this.name = name;
-        this.$members = new Array<User>();
 
         if(members != null && members.length != 0)
         {
+            this.members = new Array<User>();
+
             for(let i = 0; i < members.length; i++)
             {
                 this.members.push( new User( members[i] ) );
@@ -43,6 +51,8 @@ export class Team
 
         if(projects != null && projects.length != 0)
         {
+            this.projects = new Array<Project>();
+            
             for(let i = 0; i < projects.length; i++)
             {
                 this.projects.push( new Project( projects[i] ) );
@@ -53,6 +63,22 @@ export class Team
     /*===================================================================
      *                         GETTERS AND SETTERS
      *===================================================================*/
+    /**
+     * 
+     */
+    public get $key(): string 
+    {
+		return this.key;
+	}
+
+    /**
+     * 
+     */
+    public set $key(value: string) 
+    {
+		this.key = value;
+	}
+    
     /**
      * 
      */
@@ -112,31 +138,37 @@ export class Team
             projects: []
         }
 
-        for(let i = 0; i < this.members.length; i++)
+        if( this.members != null )
         {
-            team.members.push(this.members[i].$nickname);
+            for(let i = 0; i < this.members.length; i++)
+            {
+                team.members.push(this.members[i].$nickname);
+            }
         }
 
-        for(let i = 0; i < this.$projects.length; i++)
+        if(this.projects != null)
         {
-            let project = {
-                name: this.projects[i].$name,
-                description: this.projects[i].$description,
-                status: this.projects[i].$status,
-                iterations: []
-            }
-
-            for( let j = 0; j < this.projects[i].$iterations.length; j++)
+            for(let i = 0; i < this.projects.length; i++)
             {
-                project.iterations.push(
-                    {
-                        name: this.projects[i].$iterations[j].$name,
-                        status: this.projects[i].$iterations[j].$status
-                    }
-                )
+                let project = {
+                    name: this.projects[i].$name,
+                    description: this.projects[i].$description,
+                    status: this.projects[i].$status,
+                    iterations: []
+                }
+    
+                for( let j = 0; j < this.projects[i].$iterations.length; j++)
+                {
+                    project.iterations.push(
+                        {
+                            name: this.projects[i].$iterations[j].$name,
+                            status: this.projects[i].$iterations[j].$status
+                        }
+                    )
+                }
+                
+                team.projects.push(project);
             }
-            
-            team.projects.push(project);
         }
 
         return team;

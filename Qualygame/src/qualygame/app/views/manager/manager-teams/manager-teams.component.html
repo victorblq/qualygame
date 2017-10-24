@@ -1,0 +1,37 @@
+<md-card>
+    <div class="pad-sm">
+        <h2>{{ 'labels.teams' | translate }}</h2>
+
+        <table td-data-table>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.name' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.members' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.projects' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.actions' | translate }}</span>
+            </th>
+
+            <tr td-data-table-row *ngFor="let team of teams" style="cursor: pointer;" (click)="openTeamDetail(team)">
+                <td>
+                    {{ team.name }}
+                </td>
+                <td>
+                    {{ team.members.length }}
+                </td>
+                <td>
+                    {{ team.projects != null ? team.projects.length : '0' }}
+                </td>
+                <td>
+                    <button md-icon-button (click)="editTeam(team); $event.stopPropagation();"><md-icon>edit</md-icon></button>
+                    <button md-icon-button (click)="deleteTeam(team); $event.stopPropagation();"><md-icon>delete</md-icon></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</md-card>
+<button md-fab color="primary" class="fab-bottom-fixed" (click)="openTeamForm()"><md-icon>add</md-icon></button>

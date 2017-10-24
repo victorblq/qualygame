@@ -1,0 +1,54 @@
+<md-toolbar color="primary">
+    <h3>{{ 'labels.addProject' | translate }}</h3>
+</md-toolbar>
+
+<div layout="row" layout-margin>
+    <md-input-container flex>
+        <input mdInput placeholder="Nome" name="name" [(ngModel)]="project.name" required>
+    </md-input-container>
+
+    <md-input-container flex>
+        <input mdInput placeholder="Descrição" name="description" [(ngModel)]="project.description" required>
+    </md-input-container>
+
+    <md-select placeholder="Time" [(ngModel)]="team" flex>
+        <md-option *ngFor="let team of teams" [value]="team">
+            {{ team.name }}
+        </md-option>
+    </md-select>
+</div>
+
+<div layout="row" flex>
+    <button md-raised-button flex (click)="addIteration()"[disabled]="project.key == null">{{ 'labels.addIteration' | translate }}</button>
+</div>
+
+<div layout="row" layout-margin *ngFor="let iteration of project.iterations">
+    <md-input-container flex>
+        <input mdInput placeholder="Nome" name="name" [(ngModel)]="iteration.name" required>
+    </md-input-container>
+
+    <md-select placeholder="Status" [(ngModel)]="iteration.status" flex>
+        <md-option *ngFor="let status of iterationStatus" [value]="IterationStatus[status]">
+            {{ "enums."+status | translate }}
+        </md-option>
+    </md-select>
+
+    <div layout="row" layout-align="start center">
+        <button md-icon-button (click)="saveIteration(iteration)" *ngIf="iteration.key == null">
+            <md-icon>check</md-icon>
+        </button>
+
+        <button md-icon-button (click)="editIteration(iteration)" *ngIf="iteration.key != null">
+            <md-icon>edit</md-icon>
+        </button>
+
+        <button md-icon-button (click)="removeIteration(iteration)">
+            <md-icon>delete</md-icon>
+        </button>
+    </div>
+</div>
+
+<div layout="row" layout-margin layout-align="end center">
+    <button md-button (click)="cancel()">{{ 'labels.cancel' | translate }}</button>
+    <button md-raised-button color="primary" (click)="saveProject()">{{ 'labels.save' | translate }}</button>
+</div>

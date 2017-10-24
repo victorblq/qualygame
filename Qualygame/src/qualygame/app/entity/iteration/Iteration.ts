@@ -32,14 +32,14 @@ export class Iteration
     constructor(
         key?: string,
         name?: string,
-        status?: string,
+        status?: number,
         project?: string
     )
     {
         this.key = key;
         this.name = name;
-        this.status = IterationStatus[status];
-        this.project = new Project( project );
+        this.status = IterationStatus[IterationStatus[status]];
+        this.project = new Project( null, project );
     }
     /*===================================================================
      *                         GETTERS AND SETTERS
@@ -95,18 +95,18 @@ export class Iteration
     /**
      * 
      */
-    public get $project(): Project
-    {
-        return this.project;
-    }
+    // public get $project(): Project
+    // {
+    //     return this.project;
+    // }
 
     /**
      * 
      */
-    public set $project( value: Project )
-    {
-        this.project = value;
-    }
+    // public set $project( value: Project )
+    // {
+    //     this.project = value;
+    // }
 
     /*===================================================================
      *                             BEHAVIOUR
@@ -115,7 +115,7 @@ export class Iteration
     {
         return {
             name: this.name,
-            status: IterationStatus[this.status]
+            status: IterationStatus[IterationStatus[this.status]]
         };
     }
 }

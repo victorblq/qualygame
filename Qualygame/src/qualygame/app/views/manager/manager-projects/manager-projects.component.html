@@ -1,0 +1,42 @@
+<md-card>
+    <div class="pad-sm">
+        <h2>{{ 'labels.projects' | translate }}</h2>
+        <table td-data-table>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.name' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.description' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.iterations' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.status' | translate }}</span>
+            </th>
+            <th td-data-table-column width="10%">
+                <span>{{ 'labels.actions' | translate }}</span>
+            </th>
+
+            <tr td-data-table-row *ngFor="let project of projects">
+                <td>
+                    {{ project.name }}
+                </td>
+                <td>
+                    {{ project.description }}
+                </td>
+                <td>
+                    {{ project.iterations != null ? project.iterations.length : "" }}
+                </td>
+                <td>
+                    {{ "enums."+ProjectStatus[project.status] | translate }}
+                </td>
+                <td>
+                    <button md-icon-button (click)="openProjectForm(project)"><md-icon>edit</md-icon></button>
+                    <button md-icon-button><md-icon>delete</md-icon></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</md-card>
+<button md-fab color="primary" class="fab-bottom-fixed" (click)="openProjectForm()"><md-icon>add</md-icon></button>

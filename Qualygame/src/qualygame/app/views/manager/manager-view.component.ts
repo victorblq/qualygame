@@ -35,6 +35,11 @@ export class ManagerViewComponent implements OnInit
             name: "labels.teams",
             icon: "people",
             link: "teams"
+        },
+        {
+            name: "labels.projects",
+            icon: "work",
+            link: "projects"
         }
     ]
     /*===================================================================

@@ -1,3 +1,4 @@
+import { ManagerProjectsComponent } from './views/manager/manager-projects/manager-projects.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -6,6 +7,7 @@ import { LoginComponent } from './views/login/login.component';
 import { PlayerHomeComponent } from './views/player/player-home.component';
 import { ManagerViewComponent } from './views/manager/manager-view.component';
 import { ManagerHomeComponent } from './views/manager/manager-home/manager-home.component';
+import { ManagerTeamsComponent } from './views/manager/manager-teams/manager-teams.component';
 import { ManagerUsersComponent } from './views/manager/manager-users/manager-users.component';
 
 const routes: Routes = [
@@ -31,6 +33,16 @@ const routes: Routes = [
                 path: 'users',
                 pathMatch: 'full',
                 component: ManagerUsersComponent,
+            },
+            {
+                path: 'teams',
+                pathMatch: 'full',
+                component: ManagerTeamsComponent,
+            },
+            {
+                path: 'projects',
+                pathMatch: 'full',
+                component: ManagerProjectsComponent,
             },
         ]
     }

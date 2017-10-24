@@ -1,3 +1,4 @@
+import { UserFormComponent } from './user-form/user-form.component';
 import { ConfirmDialogComponent } from './../../common/confirm/confirm-dialog.component';
 import { MdDialog } from '@angular/material';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -95,8 +96,6 @@ export class ManagerUsersComponent implements OnInit
         }).afterClosed().subscribe( ( result ) => {
             if(result == true)
             {
-                console.log("/users/"+user.nickname);
-
                 this.afDatabase.object("/users/"+user.nickname)
                 .remove().catch( ( excecption ) => {
                     console.log(excecption);
@@ -104,4 +103,14 @@ export class ManagerUsersComponent implements OnInit
             }
         });
     }
+
+    /**
+     * 
+     */
+    openUserPopup(): void
+    {   
+        this.mdDialog.open(UserFormComponent, {
+
+        })
+    }   
 }

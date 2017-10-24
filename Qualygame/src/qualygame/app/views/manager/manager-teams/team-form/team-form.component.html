@@ -1,0 +1,36 @@
+<md-toolbar color="primary">
+    <h3>{{ 'labels.team' | translate }}</h3>
+</md-toolbar>
+
+<div layout="row" layout-margin>
+    <md-input-container flex>
+        <input mdInput placeholder="Nome" name="name" [(ngModel)]="team.name" required>
+    </md-input-container>
+</div>
+
+<div layout="column" layout-margin>
+    <h4>{{ 'labels.members' | translate }}</h4>
+    <p><small><small>Selecione os membros do time (Max. 2)</small></small></p>
+    
+    <button md-button (click)="cleanTeamMembers()" *ngIf="team.key != null && !checkboxAvailable">Alterar membros</button>
+
+    <div layout="column">
+        <md-checkbox 
+            color="primary" 
+            *ngFor="let user of availableUsers" 
+            name="userAvailable_{{user.nickname}}"
+            [disabled]="!checkboxAvailable"
+            [(ngModel)]="user.checked"
+            [checked]="user.checked"
+            (click)="addUserInTeam(user)">
+            
+            {{ user.nickname }} {{ verifyUserTeam() }}
+        </md-checkbox>
+
+    </div>  
+</div>
+
+<div layout="row" layout-margin layout-align="end center">
+    <button md-button (click)="cancel()">{{ 'labels.cancel' | translate }}</button>
+    <button md-raised-button color="primary" (click)="saveTeam()">{{ 'labels.save' | translate }}</button>
+</div>

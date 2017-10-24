@@ -21,6 +21,7 @@ import {
     MdAutocompleteModule,
     MdButtonModule,
     MdCardModule,
+    MdCheckboxModule,
     MdDialogModule,
     MdExpansionModule,
     MdIconModule,
@@ -28,6 +29,7 @@ import {
     MdListModule,
     MdMenuModule,
     MdProgressBarModule,
+    MdSelectModule,
     MdSnackBarModule,
     MdToolbarModule,
     MdTooltipModule,
@@ -67,8 +69,10 @@ import { ConfirmDialogComponent } from './views/common/confirm/confirm-dialog.co
 import { LoginComponent } from './views/login/login.component';
 import { LevelSummaryComponent } from './views/player/level-summary/level-summary.component';
 import { ManagerHomeComponent } from './views/manager/manager-home/manager-home.component';
-import { ManagerViewComponent } from './views/manager/manager-view.component';
+import { ManagerProjectsComponent } from './views/manager/manager-projects/manager-projects.component';
+import { ManagerTeamsComponent } from './views/manager/manager-teams/manager-teams.component';
 import { ManagerUsersComponent } from './views/manager/manager-users/manager-users.component';
+import { ManagerViewComponent } from './views/manager/manager-view.component';
 import { QualygameViewComponent } from './views/qualygame-view.component';
 import { QuickRankingComponent } from './views/player/player-profile/quick-ranking/quick-ranking.component';
 import { PlayerBadgesComponent } from './views/player/player-profile/player-badges/player-badges.component';
@@ -76,7 +80,11 @@ import { PlayerHomeComponent } from './views/player/player-home.component';
 import { PlayerLastCommitsComponent } from './views/player/last-commits/player-last-commits.component';
 import { PlayerLastPontuationComponent } from './views/player/last-pontuation/player-last-pontuation.component';
 import { PlayerProfileComponent } from './views/player/player-profile/player-profile.component';
+import { ProjectsFormComponent } from './views/manager/manager-projects/projects-form/projects-form.component';
+import { TeamDetailComponent } from './views/manager/manager-teams/team-detail/team-detail.component';
+import { TeamFormComponent } from './views/manager/manager-teams/team-form/team-form.component';
 import { TeamSummaryComponent } from './views/player/team-summary/team-summary.component';
+import { UserFormComponent } from './views/manager/manager-users/user-form/user-form.component';
 
 
 /*=========================================================================
@@ -98,6 +106,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         LoginComponent,
         LevelSummaryComponent,
         ManagerHomeComponent,
+        ManagerProjectsComponent,
+        ManagerTeamsComponent,
         ManagerUsersComponent,
         ManagerViewComponent,
         QualygameViewComponent,
@@ -107,8 +117,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         PlayerLastCommitsComponent,
         PlayerLastPontuationComponent,
         PlayerProfileComponent,
+        ProjectsFormComponent,
         RtProgressBarComponent,
-        TeamSummaryComponent
+        TeamDetailComponent,
+        TeamFormComponent,
+        TeamSummaryComponent,
+        UserFormComponent
     ],
     imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -120,15 +134,17 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClientModule,
         MdAutocompleteModule,
         MdButtonModule,
+        MdCardModule,
+        MdCheckboxModule,
         MdDialogModule,
         MdExpansionModule,
-        MdCardModule,
         MdIconModule,
         MdInputModule,
         MdListModule,
         MdMenuModule,
         MdToolbarModule,
         MdTooltipModule,
+        MdSelectModule,
         MdSidenavModule,
         MdSnackBarModule,
         MdProgressBarModule,
@@ -157,8 +173,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     entryComponents: [
         AnalyzeCommitPopupComponent,
+        ConfirmDialogComponent,
         PlayerProfileComponent,
-        ConfirmDialogComponent
+        ProjectsFormComponent,
+        TeamDetailComponent,
+        TeamFormComponent,
+        UserFormComponent
     ]
 })
 export class Module { }

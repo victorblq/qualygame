@@ -1,0 +1,72 @@
+<md-toolbar color="primary">
+    <h3>{{ 'labels.team' | translate }}</h3>
+</md-toolbar>
+
+<div layout="row" layout-margin>
+    <div flex>
+        <label>{{ 'labels.name' | translate }}</label>
+        <p flex>{{ team.name }}</p>
+    </div>
+</div>
+
+<div layout="column" layout-margin>
+    <h4>{{ 'labels.members' | translate }}</h4>
+
+    <table td-data-table>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.name' | translate }}</span>
+        </th>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.nickname' | translate }}</span>
+        </th>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.email' | translate }}</span>
+        </th>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.level' | translate }}</span>
+        </th>
+
+        <tr td-data-table-row *ngFor="let member of members">
+            <td>
+                {{member.name}}
+            </td>
+            <td>
+                {{member.nickname}}
+            </td>
+            <td>
+                {{member.email}}
+            </td>
+            <td>
+                {{member.level}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div layout="column" layout-margin>
+    <h4>{{ 'labels.projects' | translate }}</h4>
+
+    <table td-data-table>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.name' | translate }}</span>
+        </th>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.description' | translate }}</span>
+        </th>
+        <th td-data-table-column width="10%">
+            <span>{{ 'labels.status' | translate }}</span>
+        </th>
+
+        <tr td-data-table-row *ngFor="let project of projects">
+            <td>
+                {{project.name}}
+            </td>
+            <td>
+                {{project.description}}
+            </td>
+            <td>
+                {{ "enums."+project.status | translate}}
+            </td>
+        </tr>
+    </table>
+</div>

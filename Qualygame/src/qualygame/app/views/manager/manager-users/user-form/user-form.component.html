@@ -1,0 +1,29 @@
+<md-toolbar color="primary">
+    <h3>{{ 'labels.addUser' | translate }}</h3>
+</md-toolbar>
+
+<div layout="row" layout-margin>
+    <md-input-container flex>
+        <input mdInput placeholder="Nome" name="name" [(ngModel)]="user.name" required>
+    </md-input-container>
+
+    <md-input-container flex>
+        <input mdInput placeholder="Email" type="email" name="email" [(ngModel)]="user.email" required>
+    </md-input-container>
+
+    <md-input-container flex>
+        <input mdInput placeholder="Nickname" name="nickname" [(ngModel)]="user.nickname" required>
+    </md-input-container>
+
+    <md-select placeholder="Profile" [(ngModel)]="user.profile" flex>
+        <md-option *ngFor="let profile of userProfiles" [value]="UserProfile[profile]">
+            {{ "enums."+profile | translate }}
+        </md-option>
+    </md-select>
+</div>
+
+<div layout="row" layout-margin layout-align="end center">
+    <button md-button (click)="closePopup()">{{ 'labels.cancel' | translate }}</button>
+    
+    <button md-raised-button color="primary" (click)="saveUser()">{{ 'labels.save' | translate }}</button>
+</div>

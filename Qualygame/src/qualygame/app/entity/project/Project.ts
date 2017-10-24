@@ -1,3 +1,4 @@
+import { Team } from './../team/Team';
 import { ProjectStatus } from './ProjectStatus';
 import { Iteration } from './../iteration/Iteration';
 
@@ -6,6 +7,11 @@ export class Project
     /*===================================================================
     *                             ATTRIBUTES
     *===================================================================*/
+    /**
+     * 
+     */
+    private key: string;
+
     /**
      * 
      */
@@ -26,6 +32,11 @@ export class Project
      */
     private iterations: Array<Iteration>;
 
+    /**
+     * Transient
+     */
+    private team: Team;
+
     /*===================================================================
      *                            CONSTRUCTOR
      *===================================================================*/
@@ -37,21 +48,50 @@ export class Project
      * @param iterations 
      */
     constructor(
+        key?: string,
         name?: string,
         description?: string,
-        status?: string,
-        iterations?: Array<Iteration>
+        status?: number,
+        iterations?: any,
+        team?: Team
     )
     {
+        this.key = key;
         this.name = name;
         this.description = description;
-        this.status = ProjectStatus[status];
-        this.iterations = iterations;
+        this.status = ProjectStatus[ProjectStatus[status]];
+        
+        this.iterations = new Array<Iteration>();
+        
+        for(let key in iterations)
+        {
+            let iteration = new Iteration(key, iterations[key].name, iterations[key].status);
+
+            this.iterations.push(iteration);
+        }
+
+        this.team = team;
     }
 
     /*===================================================================
     *                         GETTERS AND SETTERS
     *===================================================================*/
+    /**
+     * 
+     */
+    public get $key(): string 
+    {
+		return this.key;
+	}
+
+    /**
+     * 
+     */
+    public set $key(value: string) 
+    {
+		this.key = value;
+	}
+    
     /**
      * 
      */
@@ -116,7 +156,47 @@ export class Project
         this.iterations = value;
     }
 
+    /**
+     * 
+     */
+    public get $team(): Team 
+    {
+		return this.team;
+	}
+
+    /**
+     * 
+     */
+    public set $team(value: Team) 
+    {
+		this.team = value;
+	}
+    
+
     /*===================================================================
      *                             BEHAVIOUR
      *===================================================================*/
+    toFirebase(): {}
+    {
+        let project = {
+            name: this.name,
+            description: this.description,
+            status: ProjectStatus[ProjectStatus[this.status]],
+            iterations: []
+        };
+
+        if(this.iterations != null && this.iterations.length > 0)
+        {
+            for(let i = 0; i < this.iterations.length; i++)
+            {
+                project.iterations[this.iterations[i].$key] = this.iterations[i].toFirebase()
+            }
+        }
+        else
+        {
+            delete(project.iterations);
+        }
+
+        return project;
+    }
 }
