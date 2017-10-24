@@ -7,7 +7,7 @@ admin.initializeApp({
     databaseURL: "https://qualygame.firebaseio.com/"
 });
 
-console.log("Qualygame Client-CLI Started");
+console.log("Qualygame Client-CLI Started \n");
 //argv[0] is the nodejs home 
 //argv[1] is the script directory (full path)
 let hash = process.argv[2];
@@ -21,7 +21,7 @@ admin.database().ref("/users")
 .equalTo(userEmail)
 .once("child_added", ( result ) => {
     var user = result.val();
-    console.log("User found!");    
+    console.log("User found! \n");    
     findTeamInteration(user);
 });
 

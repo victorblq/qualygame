@@ -8,7 +8,12 @@
             *ngIf="levels != null"
             [results]="levels"
             [xAxis]="true"
-            [yAxis]="true">
+            [yAxis]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxisLabel]="'Niveis'"
+            [yAxisLabel]="'Quantidade'"
+            [tooltipDisabled]="true">
         </ngx-charts-bar-vertical>
     </div>
     

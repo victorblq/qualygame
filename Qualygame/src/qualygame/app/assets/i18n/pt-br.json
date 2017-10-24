@@ -70,6 +70,7 @@
     "actions":{
         "COMMIT": "Commit",
         "ARTIFACT_REVIEWED": "Artefato revisado",
-        "COMMIT_WITHOUT_ARTIFACT": "Commit sem artefato"
+        "COMMIT_WITHOUT_ARTIFACT": "Commit sem artefato",
+        "ARTIFACT_ERROR": "Não conformidade"
     }
 }

@@ -13,7 +13,7 @@
         <div layout="column" class="push-md" *ngIf="team != null && coworker != null" style="border: 1px solid #009688; min-width: 20%; border-radius: 50%; text-align: center;">
             <div layout="column" layout-align="center center" class="push-xxl">
                 <span>{{ team.name }}</span>
-                <span>{{ calculateMedia() }}</span>
+                <span *ngIf="team != null">{{ calculateMedia() }}</span>
             </div>
         </div>
 

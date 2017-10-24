@@ -32,6 +32,8 @@
     <quick-ranking *ngIf="user != null" [user]="user" [userOnly]="userOnlyRanking"></quick-ranking>
 
     <md-card-footer>
-        <md-progress-bar *ngIf="user == null" mode="indeterminate"></md-progress-bar>
+        <div layout="row" layout-align="center start" flex>
+            <md-progress-bar *ngIf="user == null" style="position: absolute;"  flex mode="indeterminate"></md-progress-bar> 
+        </div>
     </md-card-footer>
 </md-card>

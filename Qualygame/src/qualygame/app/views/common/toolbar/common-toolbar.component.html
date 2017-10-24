@@ -29,7 +29,6 @@
     
     <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>account_circle</md-icon></button>
     <md-menu #menu="mdMenu">
-        <button md-menu-item>Item 1</button>
         <button md-menu-item (click)="logout()">{{ 'labels.exit' | translate }}</button>
     </md-menu>
 </md-toolbar>

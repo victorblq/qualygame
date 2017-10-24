@@ -54,19 +54,22 @@ export class TeamSummaryComponent implements OnInit
         .subscribe( ( teams ) => {
             for(let i = 0; i < teams.length; i++)
             {
-                for(let j = 0; j < teams[i].members.length; j++)
-                { 
-                    if(teams[i].members[j] == this.loggedUser.$nickname)
-                    {
-                        this.team = new Team(teams[i].name, teams[i].members, null);
-
-                        if( teams[i].members.indexOf( teams[i].members[j]) == 1 )
+                if(teams[i].members != null)
+                {
+                    for(let j = 0; j < teams[i].members.length; j++)
+                    { 
+                        if(teams[i].members[j] == this.loggedUser.$nickname)
                         {
-                            this.findCoworker(teams[i].members[j-1]);
-                        }
-                        else
-                        {
-                            this.findCoworker(teams[i].members[j+1]);
+                            this.team = new Team(teams[i].$key, teams[i].name, teams[i].members, null);
+    
+                            if( teams[i].members.indexOf( teams[i].members[j]) == 1 )
+                            {
+                                this.findCoworker(teams[i].members[j-1]);
+                            }
+                            else
+                            {
+                                this.findCoworker(teams[i].members[j+1]);
+                            }
                         }
                     }
                 }
