@@ -62,18 +62,33 @@ export class PlayerLastCommitsComponent implements OnInit
 
             this.lastCommits = new Array<Commit>();
             
+            userCommits.sort( (commit1, commit2) => {
+                if(commit1.date > commit2.date)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            });
+
             userCommits.forEach( ( commit ) => {
-                this.lastCommits.push( 
-                    new Commit( 
-                        commit.hash, 
-                        commit.message, 
-                        commit.date, 
-                        commit.commitedArtifacts, 
-                        commit.status,
-                        commit.user,
-                        commit.iteration 
-                    )
-                );
+                if(this.lastCommits.length < 6)
+                {
+                    this.lastCommits.push( 
+                        new Commit( 
+                            commit.hash, 
+                            commit.message, 
+                            commit.date, 
+                            commit.commitedArtifacts, 
+                            commit.status,
+                            commit.user,
+                            commit.iteration 
+                        )
+                    );
+                }
+
             });
         });
     }

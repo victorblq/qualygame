@@ -9,10 +9,10 @@
             <th td-data-table-column width="10%">
                 <span>{{ 'labels.members' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.projects' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.actions' | translate }}</span>
             </th>
 
@@ -23,10 +23,10 @@
                 <td>
                     {{ team.members.length }}
                 </td>
-                <td>
+                <td hide-xs>
                     {{ team.projects != null ? team.projects.length : '0' }}
                 </td>
-                <td>
+                <td hide-xs>
                     <button md-icon-button (click)="editTeam(team); $event.stopPropagation();"><md-icon>edit</md-icon></button>
                     <button md-icon-button (click)="deleteTeam(team); $event.stopPropagation();"><md-icon>delete</md-icon></button>
                 </td>
@@ -34,4 +34,4 @@
         </table>
     </div>
 </md-card>
-<button md-fab color="primary" class="fab-bottom-fixed" (click)="openTeamForm()"><md-icon>add</md-icon></button>
+<button md-fab color="primary" class="fab-bottom-fixed" (click)="openTeamForm()" hide-xs><md-icon>add</md-icon></button>

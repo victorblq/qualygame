@@ -1,4 +1,5 @@
 import { Project } from './../../../../entity/project/Project';
+import { ProjectStatus } from './../../../../entity/project/ProjectStatus';
 import { User } from './../../../../entity/user/User';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MD_DIALOG_DATA } from '@angular/material';
@@ -29,6 +30,11 @@ export class TeamDetailComponent implements OnInit
      * 
      */
     private projects: Array<Project>;
+
+    /**
+     * 
+     */
+    private ProjectStatus = ProjectStatus;
     /*===================================================================
      *                            CONSTRUCTOR
      *===================================================================*/

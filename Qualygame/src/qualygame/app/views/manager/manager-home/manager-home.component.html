@@ -8,19 +8,19 @@
             <th td-data-table-column width="10%">
                 <span>Data</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs hide-gt-xs>
                 <span>Projeto</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs hide-gt-xs>
                 <span>Ciclo</span>
             </th>
-            <th td-data-table-column width="40%">
+            <th td-data-table-column width="40%" hide-xs hide-gt-xs>
                 <span>Mensagem</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>Status</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 Ações
             </th>
             <tr td-data-table-row *ngFor="let commit of commits">
@@ -32,23 +32,23 @@
                     {{ commit.date | date:'dd/MM/yyyy HH:mm:ss' }}
                 </td>
 
-                <td>
+                <td hide-xs hide-gt-xs>
                     {{ commit.iteration.project.name }}
                 </td>
 
-                <td>
+                <td hide-xs hide-gt-xs>
                     {{ commit.iteration.name }}
                 </td>
 
-                <td>
+                <td hide-xs hide-gt-xs>
                     {{ commit.message }}
                 </td>
 
-                <td>
+                <td hide-xs>
                     {{ "enums."+commit.status | translate }}
                 </td>
 
-                <td>
+                <td hide-xs>
                     <button md-icon-button (click)="analyzeCommit(commit);" mdTooltip="{{ 'labels.analyzeCommit' | translate }}"><md-icon>search</md-icon></button>
                     <button md-icon-button mdTooltip="{{ 'labels.reviewCommit' | translate }}"><md-icon>check</md-icon></button>
                 </td>

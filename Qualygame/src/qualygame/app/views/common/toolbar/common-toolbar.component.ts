@@ -116,7 +116,7 @@ export class CommonToolbarComponent implements OnInit
         this.playersOfSearch = new Array<User>();
 
         let dialogRef = this.mdDialog.open(PlayerProfileComponent, {
-            width: "30%",
+            width: "50%",
             data: {
                 user: player,
                 userOnlyRanking: true

@@ -6,7 +6,7 @@
 
     <span flex></span>
 
-    <div flex="30" class="toolbarSearchBox">
+    <div flex="30" class="toolbarSearchBox" hide-xs>
         <md-input-container flex>
             <input 
                 mdInput 
@@ -23,7 +23,7 @@
         </md-autocomplete>
     </div>
 
-    <span>{{ 'labels.hello' | translate }} {{ loggedUser?.nickname }}
+    <span hide-xs hide-sm>{{ 'labels.hello' | translate }} {{ loggedUser?.nickname }}
         <span *ngIf="loggedUser.isPlayer()">, {{ 'labels.yourPontuationIs' | translate }} {{ loggedUser?.totalPontuation }}</span>
     </span>
     

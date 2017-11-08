@@ -5,16 +5,16 @@
             <th td-data-table-column width="10%">
                 <span>{{ 'labels.name' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.description' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.iterations' | translate }}</span>
             </th>
             <th td-data-table-column width="10%">
                 <span>{{ 'labels.status' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.actions' | translate }}</span>
             </th>
 
@@ -22,16 +22,16 @@
                 <td>
                     {{ project.name }}
                 </td>
-                <td>
+                <td hide-xs>
                     {{ project.description }}
                 </td>
-                <td>
+                <td hide-xs>
                     {{ project.iterations != null ? project.iterations.length : "" }}
                 </td>
                 <td>
                     {{ "enums."+ProjectStatus[project.status] | translate }}
                 </td>
-                <td>
+                <td hide-xs>
                     <button md-icon-button (click)="openProjectForm(project)"><md-icon>edit</md-icon></button>
                     <button md-icon-button><md-icon>delete</md-icon></button>
                 </td>
@@ -39,4 +39,4 @@
         </table>
     </div>
 </md-card>
-<button md-fab color="primary" class="fab-bottom-fixed" (click)="openProjectForm()"><md-icon>add</md-icon></button>
+<button md-fab color="primary" class="fab-bottom-fixed" (click)="openProjectForm()" hide-xs><md-icon>add</md-icon></button>

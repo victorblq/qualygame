@@ -8,13 +8,13 @@
             <th td-data-table-column width="10%">
                 <span>{{ 'labels.email' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.profile' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.status' | translate }}</span>
             </th>
-            <th td-data-table-column width="10%">
+            <th td-data-table-column width="10%" hide-xs>
                 <span>{{ 'labels.actions' | translate }}</span>
             </th>
 
@@ -25,13 +25,13 @@
                 <td>
                     {{ user.email }}
                 </td>
-                <td>
+                <td hide-xs>
                     {{ "enums."+UserProfile[user.profile] | translate }}
                 </td>
-                <td>
+                <td hide-xs>
                     {{ "enums."+UserStatus[user.status] | translate }}
                 </td>
-                <td>
+                <td hide-xs>
                     <button md-icon-button *ngIf="user.status == UserStatus.ACTIVE" (click)="changeUserStatus(user, UserStatus.INACTIVE)">
                         <md-icon>block</md-icon>
                     </button>
@@ -45,4 +45,4 @@
         </table>
     </div>
 </md-card>
-<button md-fab color="primary" class="fab-bottom-fixed" (click)="openUserPopup()"><md-icon>add</md-icon></button>
+<button md-fab color="primary" class="fab-bottom-fixed" (click)="openUserPopup()" hide-xs><md-icon>add</md-icon></button>
