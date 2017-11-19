@@ -50,7 +50,7 @@
 
                 <td hide-xs>
                     <button md-icon-button (click)="analyzeCommit(commit);" mdTooltip="{{ 'labels.analyzeCommit' | translate }}"><md-icon>search</md-icon></button>
-                    <button md-icon-button mdTooltip="{{ 'labels.reviewCommit' | translate }}"><md-icon>check</md-icon></button>
+                    <button md-icon-button *ngIf="commit.status != CommitStatus[CommitStatus.ANALYZED]" (click)="reviewCommit(commit);" mdTooltip="{{ 'labels.reviewCommit' | translate }}"><md-icon>check</md-icon></button>
                 </td>
             </tr>
         </table>

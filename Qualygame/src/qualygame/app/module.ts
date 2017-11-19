@@ -85,6 +85,7 @@ import { TeamDetailComponent } from './views/manager/manager-teams/team-detail/t
 import { TeamFormComponent } from './views/manager/manager-teams/team-form/team-form.component';
 import { TeamSummaryComponent } from './views/player/team-summary/team-summary.component';
 import { UserFormComponent } from './views/manager/manager-users/user-form/user-form.component';
+import { UserDetailComponent } from './views/manager/manager-users/user-detail/user-detail.component';
 
 
 /*=========================================================================
@@ -122,7 +123,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         TeamDetailComponent,
         TeamFormComponent,
         TeamSummaryComponent,
-        UserFormComponent
+        UserFormComponent,
+        UserDetailComponent
     ],
     imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -178,7 +180,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         ProjectsFormComponent,
         TeamDetailComponent,
         TeamFormComponent,
-        UserFormComponent
+        UserFormComponent,
+        UserDetailComponent
     ]
 })
 export class Module { }

@@ -5,7 +5,14 @@
 
     <md-card class="pad-top-sm pad-left-xs pad-right-xs pad-bottom-md">
         <div *ngFor="let rankRow of quickRankingList; let position = index;">
-            <div flex layout="row" *ngIf="!userOnly || rankRow.user.nickname == user.nickname" class="pad-sm rankingRow position_{{rankRow.position < 3 ? rankRow.position : rankRow.user.nickname == user.nickname ? 'user' : 'white'}}" layout-align="start center">
+            <div flex layout="row" *ngIf="!userOnly || rankRow.user.nickname == user.nickname" 
+                class="pad-sm rankingRow 
+                position_{{rankRow.position < 3 ? 
+                    rankRow.position : 
+                        rankRow.user.nickname == user.nickname ? 
+                            'user' : 'white'}}" 
+                layout-align="start center"
+                (click)="openPlayerProfile(rankRow.user)">
                 <div layout="row" flex layout-align="start center">
                     <div layout="row" class="rankingRowPositionNumber" layout-align="center center">
                         <span>{{rankRow.position + 1}}</span>
@@ -14,6 +21,7 @@
                     <span flex></span>
                     <span>{{ rankRow.user.totalPontuation }} {{ 'labels.points' | translate }}</span>
                 </div>
+
             </div>
         </div>
 

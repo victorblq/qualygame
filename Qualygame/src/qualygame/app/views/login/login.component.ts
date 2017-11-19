@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit
     /**
      * 
      */
+    private loading: boolean = false;
+
+    /**
+     * 
+     */
     constructor(
         private afAuth: AngularFireAuth,
         private afDatabase: AngularFireDatabase,
@@ -62,6 +67,8 @@ export class LoginComponent implements OnInit
             } );
             return;
         }
+        
+        this.loading = true;
 
         this.afAuth.auth.signInWithEmailAndPassword( this.email, this.password )
             .then(( loggedUser ) =>
@@ -71,6 +78,8 @@ export class LoginComponent implements OnInit
                     .equalTo( loggedUser.email )
                     .once( 'child_added', ( snap ) =>
                     {
+                        this.loading = false;
+
                         let user: User = new User( 
                             snap.val().nickname, 
                             snap.val().email, 

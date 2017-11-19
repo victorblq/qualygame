@@ -1,3 +1,5 @@
+import { CommitedArtifactStatus } from './../../../entity/commit/CommitedArtifactStatus';
+import { CommitStatus } from './../../../entity/commit/CommitStatus';
 import { Artifact } from './../../../entity/artifact/Artifact';
 import { AnalyzeCommitPopupComponent } from './../analyze-commit-popup/analyze-commit-popup.component';
 import { MdDialog, MdSnackBar } from '@angular/material';
@@ -27,6 +29,11 @@ export class ManagerHomeComponent implements OnInit
      * 
      */
     private commits: Array<Commit>;
+
+    /**
+     * 
+     */
+    private CommitStatus = CommitStatus;
 
     /*===================================================================
      *                            CONSTRUCTOR
@@ -180,6 +187,31 @@ export class ManagerHomeComponent implements OnInit
 
         this.afDatabase.list("/commits/"+commit1.$hash+"/commitedArtifacts")
         .push(commitedArtifact2);
+    }
+
+    /**
+     * 
+     */
+    reviewCommit(commitToReview: Commit): void
+    {
+        this.afDatabase.database.ref("/commits/"+commitToReview.$hash)
+        .once("value", ( savedCommit ) => {
+            let commit = Object.assign({}, savedCommit.val());
+
+            
+            for(let key in commit.commitedArtifacts)
+            {
+                commit.commitedArtifacts[key].status = CommitedArtifactStatus.CORRECT;
+            }
+
+            this.afDatabase.object("/commits/"+commit.hash)
+            .set(commit);
+
+            commit.status = CommitStatus.ANALYZED;
+            
+            this.afDatabase.object("/commits/"+commit.hash)
+            .set(commit);
+        });
     }
 
     saveTeam()

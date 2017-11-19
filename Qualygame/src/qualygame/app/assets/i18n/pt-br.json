@@ -48,7 +48,8 @@
         "description": "Descrição",
         "commits": "Commits",
         "addProject": "Adicionar projeto",
-        "addIteration": "Adicionar ciclo"
+        "addIteration": "Adicionar ciclo",
+        "userDetail": "Detalhes do usuário"
     },
     "badgeDescription": {
         "first_commit": "Primeiro commit",

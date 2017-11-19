@@ -1,3 +1,4 @@
+import { CommitStatus } from './../../../entity/commit/CommitStatus';
 import { PontuationService } from './../../../service/PontuationService';
 import { Action } from './../../../entity/action/Action';
 import { Pontuation } from './../../../entity/pontuation/Pontuation';
@@ -121,8 +122,51 @@ export class AnalyzeCommitPopupComponent implements OnInit
             commitedArtifact.$status = CommitedArtifactStatus[CommitedArtifactStatus.CORRECT];
 
             this.pontuationService.insertPontuation(this.commit, commitedArtifact.$key, "ARTIFACT_REVIEWED");
+
+            this.verifyCommitedArtifactsStatus();
+    
         } );
 
+    }
+
+    private verifyCommitedArtifactsStatus()
+    {
+        let containNotFinalized = false;
+
+        this.afDatabase.list("/commits/"+this.commit.$hash+"/commitedArtifacts")
+        .subscribe( ( result ) => {
+
+            for(let i = 0; i < result.length; i++)
+            {
+                if( result[i].status != CommitedArtifactStatus.CORRECT )
+                {
+                    containNotFinalized = true;
+                }
+            }
+
+            if(containNotFinalized == false)
+            {
+                this.afDatabase.database.ref("/commits/"+this.commit.$hash)
+                .once("value", ( savedCommit ) => {
+                    let commit = Object.assign({}, savedCommit.val());
+                    commit.status = CommitStatus.ANALYZED;
+                    
+                    this.afDatabase.object("/commits/"+this.commit.$hash)
+                    .set(commit);
+                })
+            }
+            else
+            {
+                this.afDatabase.database.ref("/commits/"+this.commit.$hash)
+                .once("value", ( savedCommit) => {
+                    let commit = Object.assign({}, savedCommit.val());
+                    commit.status = CommitStatus.OPEN;
+                    
+                    this.afDatabase.object("/commits/"+this.commit.$hash)
+                    .set(commit);
+                })
+            }
+        });
     }
 
     /**
@@ -157,6 +201,9 @@ export class AnalyzeCommitPopupComponent implements OnInit
                     this.afDatabase.object("/users/"+this.commit.$user.$nickname+"/pontuation/"+pontuation.$key)
                     .remove();
                 }
+
+
+                this.verifyCommitedArtifactsStatus();
                 
             } );
         });

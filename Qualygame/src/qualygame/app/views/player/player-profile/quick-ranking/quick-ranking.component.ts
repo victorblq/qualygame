@@ -1,3 +1,5 @@
+import { PlayerProfileComponent } from './../player-profile.component';
+import { MdDialog } from '@angular/material';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from './../../../../entity/user/User';
 import { Component, OnInit, Input } from '@angular/core';
@@ -34,7 +36,8 @@ export class QuickRankingComponent implements OnInit
      * 
      */
     constructor(
-        private afDatabase: AngularFireDatabase
+        private afDatabase: AngularFireDatabase,
+        private MdDialog: MdDialog
     ){}
 
     /*===================================================================
@@ -140,5 +143,18 @@ export class QuickRankingComponent implements OnInit
             }
 
         });
+    }
+
+    openPlayerProfile( user: User ): void
+    {
+        if( !this.userOnly )
+        {
+            this.MdDialog.open(PlayerProfileComponent, {
+                data: {
+                    user: user,
+                    userOnlyRanking: true
+                }
+            })
+        }
     }
 }

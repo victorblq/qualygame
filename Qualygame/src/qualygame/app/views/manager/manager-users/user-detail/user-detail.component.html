@@ -1,0 +1,30 @@
+<md-toolbar color="primary">
+    <h3>{{ 'labels.userDetail' | translate }}</h3>
+    <span flex></span>
+
+    <button md-icon-button (click)="closeDialog()"><md-icon>close</md-icon></button>
+</md-toolbar>
+
+<div layout="row" layout-margin>
+
+    <div flex>
+        <label>{{ 'labels.name' | translate }}</label>
+        <p flex>{{ user.name }}</p>
+    </div>
+
+    <div flex>
+        <label>{{ 'labels.email' | translate }}</label>
+        <p flex>{{ user.email }}</p>
+    </div>
+
+    <div flex>
+        <label>{{ 'labels.nickname' | translate }}</label>
+        <p flex>{{ user.nickname }}</p>
+    </div>
+
+    <div flex>
+        <label>{{ 'labels.profile' | translate }}</label>
+        <p flex>{{ "enums."+UserProfile[user.profile] | translate }}</p>
+    </div>
+
+</div>

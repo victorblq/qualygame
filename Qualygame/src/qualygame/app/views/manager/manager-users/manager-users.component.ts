@@ -1,3 +1,5 @@
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserService } from './../../../service/UserService';
 import { UserFormComponent } from './user-form/user-form.component';
 import { ConfirmDialogComponent } from './../../common/confirm/confirm-dialog.component';
 import { MdDialog } from '@angular/material';
@@ -31,6 +33,11 @@ export class ManagerUsersComponent implements OnInit
      * 
      */
     private UserStatus = UserStatus;
+
+    /**
+     * 
+     */
+    private loggedUser: User;
     /*===================================================================
      *                            CONSTRUCTOR
      *===================================================================*/
@@ -40,8 +47,14 @@ export class ManagerUsersComponent implements OnInit
      */
     constructor(
         private afDatabase: AngularFireDatabase,
-        private mdDialog: MdDialog
-    ) { }
+        private mdDialog: MdDialog,
+        private userService: UserService
+    ) 
+    {
+        this.userService.userChangedEventSource$.subscribe((loggedUser) => {
+            this.loggedUser = loggedUser;
+        });
+    }
 
     /*===================================================================
      *                         GETTERS AND SETTERS
@@ -54,7 +67,9 @@ export class ManagerUsersComponent implements OnInit
      * 
      */
     ngOnInit() 
-    { 
+    {
+        this.loggedUser = this.userService.$loggedUser;
+         
         this.afDatabase.list("users")
         .subscribe( ( userList ) => {
             this.userList = userList;
@@ -111,6 +126,19 @@ export class ManagerUsersComponent implements OnInit
     {   
         this.mdDialog.open(UserFormComponent, {
 
-        })
+        });
     }   
+
+    /**
+     * 
+     * @param user 
+     */
+    showUserDetails(user)
+    {
+        this.mdDialog.open(UserDetailComponent, {
+            data: {
+                user: user
+            }
+        });
+    }
 }

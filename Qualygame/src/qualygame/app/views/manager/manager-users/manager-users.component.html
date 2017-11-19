@@ -18,7 +18,7 @@
                 <span>{{ 'labels.actions' | translate }}</span>
             </th>
 
-            <tr td-data-table-row *ngFor="let user of userList">
+            <tr td-data-table-row *ngFor="let user of userList" (click)="showUserDetails(user)">
                 <td>
                     {{ user.name }}
                 </td>
@@ -31,15 +31,15 @@
                 <td hide-xs>
                     {{ "enums."+UserStatus[user.status] | translate }}
                 </td>
-                <td hide-xs>
-                    <button md-icon-button *ngIf="user.status == UserStatus.ACTIVE" (click)="changeUserStatus(user, UserStatus.INACTIVE)">
+                <td hide-xs *ngIf="loggedUser != null">
+                    <button md-icon-button *ngIf="user.status == UserStatus.ACTIVE && loggedUser.email != user.email" (click)="changeUserStatus(user, UserStatus.INACTIVE)">
                         <md-icon>block</md-icon>
                     </button>
 
-                    <button md-icon-button *ngIf="user.status == UserStatus.INACTIVE" (click)="changeUserStatus(user, UserStatus.ACTIVE)">
+                    <button md-icon-button *ngIf="user.status == UserStatus.INACTIVE && loggedUser.email != user.email" (click)="changeUserStatus(user, UserStatus.ACTIVE)">
                         <md-icon>check</md-icon>
                     </button>
-                    <button md-icon-button (click)="deleteUser(user)"><md-icon>delete</md-icon></button>
+                    <button md-icon-button (click)="deleteUser(user)" *ngIf="loggedUser.email != user.email"><md-icon>delete</md-icon></button>
                 </td>
             </tr>
         </table>
