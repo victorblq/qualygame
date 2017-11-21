@@ -9,5 +9,5 @@ if [[ $MESSAGE == *"#gamify"* ]]; then
 	echo `date --rfc-3339=seconds` - Received commit \n >> /git/logs/qualygame.log
 	echo `node /home/qualygame/qualygame/Client-cli/client-cli.js $HASH "$MESSAGE" $USEREMAIL "$DATE" $GITLOGFILES` >> /git/logs/qualygame.log
 else
-	echo "Sem Tag" >> testeTag.txt
+	echo "Sem Tag" >> /git/logs/qualygame.log
 fi
