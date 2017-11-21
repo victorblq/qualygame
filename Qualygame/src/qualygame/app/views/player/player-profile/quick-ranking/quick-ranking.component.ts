@@ -3,6 +3,7 @@ import { MdDialog } from '@angular/material';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from './../../../../entity/user/User';
 import { Component, OnInit, Input } from '@angular/core';
+import { UserProfile } from '../../../../entity/user/UserProfile';
 
 @Component( {
     selector: 'quick-ranking',
@@ -74,6 +75,10 @@ export class QuickRankingComponent implements OnInit
             userList.sort( ( userToFind1, userToFind2 ) => {
                 return userToFind1.$totalPontuation > userToFind2.$totalPontuation ? -1 : 1;
             });
+
+            userList = userList.filter( (userToFind) => {
+                return userToFind.$profile == UserProfile.PLAYER;
+            } );
 
             this.quickRankingList = new Array<{user: User, position: number}>();
 
